@@ -19,56 +19,6 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 
 ### What we are doing today
 
-Today we are going to import some data on daily ridership and practice filtering and summarizing the data. You will have an opportunity to choose how you want to slice and dice the data and will make a table with your results. 
-
-### First, load your packages
-
-```{r}
-library(tidyverse)
-```
-
-
-### Let's get some data!
-
-To make it easy for you to manage file paths (which can be a bit tricky), I uploaded a csv of ridership data to my github page. We can grab the file from there. 
-
-```{r}
-activity_url <- "https://github.com/melissa-gaughan/r-tutorials/blob/main/2021-12-3_dplyr_tutorial/data/trip_detail_Fall_2021.zip"
-
-vroom(temp)
-ile = read.table(unzip("https://github.com/melissa-gaughan/r-tutorials/blob/main/2021-12-3_dplyr_tutorial/data/trip_detail_Fall_2021.zip"), sep = ",", header = TRUE)
-temp <- tempfile()
-download.file(activity_url, temp)
-unzip(temp, "trip_detail_Fall_2021.csv", exdir ="C:/Users/mgaughan/Documents/metro-r-tutorials/data" )
-# note that here I modified your original read.table() which did not work
-mydata <- read.csv("trip_detail_Fall_2021.csv")
-unlink(temp)
-```
-
-```{r}
-setwd(dir = "C:/Users/mgaughan/Documents/")
-
-# download a .zip---
-title: "2021-12-3 dplyr tutorial"
-output: html_notebook
----
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-```{r}
-plot(cars)
-```
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
-
-### What we are doing today
-
 Today we are going to import some data on daily ridership and practice filtering  the data. You will have an opportunity to choose how you want to slice and dice the data and will make a dataframe with your results. 
 
 ```{r}
