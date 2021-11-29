@@ -21,7 +21,240 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 
 Today we are going to import some data on daily ridership and practice filtering and summarizing the data. You will have an opportunity to choose how you want to slice and dice the data and will make a table with your results. 
 
+### First, load your packages
+
+```{r}
+library(tidyverse)
+```
+
 
 ### Let's get some data!
 
 To make it easy for you to manage file paths (which can be a bit tricky), I uploaded a csv of ridership data to my github page. We can grab the file from there. 
+
+```{r}
+activity_url <- "https://github.com/melissa-gaughan/r-tutorials/blob/main/2021-12-3_dplyr_tutorial/data/trip_detail_Fall_2021.zip"
+
+vroom(temp)
+ile = read.table(unzip("https://github.com/melissa-gaughan/r-tutorials/blob/main/2021-12-3_dplyr_tutorial/data/trip_detail_Fall_2021.zip"), sep = ",", header = TRUE)
+temp <- tempfile()
+download.file(activity_url, temp)
+unzip(temp, "trip_detail_Fall_2021.csv", exdir ="C:/Users/mgaughan/Documents/metro-r-tutorials/data" )
+# note that here I modified your original read.table() which did not work
+mydata <- read.csv("trip_detail_Fall_2021.csv")
+unlink(temp)
+```
+
+```{r}
+setwd(dir = "C:/Users/mgaughan/Documents/")
+
+# download a .zip---
+title: "2021-12-3 dplyr tutorial"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+### What we are doing today
+
+Today we are going to import some data on daily ridership and practice filtering and summarizing the data. You will have an opportunity to choose how you want to slice and dice the data and will make a table with your results. 
+
+```{r}
+#ONLY RUN THIS IF YOU DON'T HAVE THESE PACKAGES
+install.packages("usethis")
+install.packages("tidyverse")
+install.packages("here")
+
+```
+
+
+```{r}
+#You need to load your packages everytime you run an R script
+library(usethis)
+library(tidyverse)
+library(here)
+
+```
+
+### Let's get some data!
+
+To make it easy for you to manage file paths (which can be a bit tricky), I've uploaded today's code and a csv of ridership data to my github page. If you're reading this, you've already downloaded the files and they are now on your computer. **However** filepaths are tricksy. If this doesn't work for you, let me know. 
+
+```{r Load in data}
+
+#we are reading in a dataframe of trip data from a zipped csv file
+
+trip_detail <- read_csv(here("2021-12-3_dplyr_tutorial", 
+                             "data", 
+                             "trip_detail_Fall_2021.zip"))
+
+```
+
+## Filter your data
+
+We have a lot of data. Can you figure out how many rows we have in the data frame? (Hint: look at the Environment pane)
+
+One thing that you will almost always need to do is filter your data. Let's filter our data a couple different ways.
+
+```{r}
+
+route_7_trips <- trip_detail %>% 
+  filter(SERVICE_RTE_NUM == 7)
+
+```
+
+
+
+### Your turn
+
+Choose a different route to filter by and adjust my code to make it do what you want it to. Fill in the gaps indicated by "_____"
+
+
+```{r}
+
+_____ <- trip_detail %>% 
+  filter(SERVICE_RTE_NUM == ___)
+
+```
+
+
+## Filter by more than one route
+
+If we wanted to filter routes based on a list of routes, we can do that too. 
+
+```{r}
+
+ballard_trips <- trip_detail %>% 
+  filter(SERVICE_RTE_NUM %in% c(15, 17, 18, 674, 40))
+
+```
+
+### Your turn
+
+Choose a different set of routes to filter by and adjust my code to make it do what you want it to. Fill in the gaps indicated by "_____"
+
+
+```{r}
+
+_____ <- trip_detail %>% 
+  filter(SERVICE_RTE_NUM %in% _____)
+
+```
+
+## Choose a route to exclude
+
+You can use the filter syntax to also specify what you DON'T want. 
+
+
+```{r}
+
+# the "!" means "not"
+# c(500:600) creates a sequential list incrementing by 1. This list will cover all Sound Transit route numbers
+
+only_metro_trips <- trip_detail %>% 
+  filter(! SERVICE_RTE_NUM %in% c(500: 600) )
+
+```
+
+### Your turn
+Choose a different set of routes to exclude. Maybe exclude the DART system or Community Connections?
+
+
+```{r}
+
+# the "!" means "not"
+# c(500:600) creates a sequential list incrementing by 1. This list will cover all Sound Transit route numbers
+
+___ <- trip_detail %>% 
+  filter(_ SERVICE_RTE_NUM %in% ____ )
+
+```
+
+
+
+## Let's get rid of some columns
+
+Oftentimes, we won't need all the columns that a dataset comes with. We can use the "select" command to choose what columns we want.
+
+
+```{r}
+narrow_trips <- trip_detail %>% 
+  select(SERVICE_CHANGE_NUM, OPERATION_DATE, EXPRESS_LOCAL_CD, INBD_OUTBD_CD, SCHED_DAY_TYPE_CODED_NUM, SCHED_START_TIME, PSNGR_BOARDINGS)
+
+
+```
+
+
+### Your turn
+
+Use the code block below to select a different set of columns from the trip_detail table. (Hint: you can see all the column names by clicking on the blue triangle next to "trip_detail" in the Environment panel)
+
+```{r}
+____ <- trip_detail %>% 
+  select(______)
+
+
+
+```
+
+## Drop a column
+
+One really common use case is that you need to select all the columns but one. Luckily for you, there's a syntax for that!
+
+```{r}
+
+trip_detail_no_holiday <- trip_detail %>% 
+  select(-HOLIDAY_NAME)
+
+```
+
+### Drop multiple columns
+
+You can also drop multiple columns from a dataset by creating a vector of column names
+
+```{r}
+trip_detail_drop_multiple <- trip_detail %>% 
+  select(- c(HOLIDAY_NAME, TRIP_ID_MATCH_FLAG, SOURCE_SYSTEM_KEY))
+```
+
+
+### Your turn
+
+Use the same syntax to create a dataframe that has dropped one or more columns. 
+
+
+```{r}
+
+____ <- trip_detail %>% 
+  select(_ ______)
+```
+ file of the repository
+# from the "Clone or download - Download ZIP" button
+# on the GitHub repository of interest
+download.file(url = "https://github.com/jumpingrivers/meetingsR/archive/master.zip"
+                                   , destfile = "meetingsR-master.zip")
+
+# unzip the .zip file
+unzip(zipfile = "meetingsR-master.zip")
+
+# set the working directory
+# to be inside the newly unzipped 
+# GitHub repository of interest
+setwd(dir = "/some/path/meetingsR-master/")
+
+# examine the contents
+list.files()
+```
+
