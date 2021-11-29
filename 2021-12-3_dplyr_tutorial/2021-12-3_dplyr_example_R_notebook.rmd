@@ -69,7 +69,7 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 
 ### What we are doing today
 
-Today we are going to import some data on daily ridership and practice filtering and summarizing the data. You will have an opportunity to choose how you want to slice and dice the data and will make a table with your results. 
+Today we are going to import some data on daily ridership and practice filtering  the data. You will have an opportunity to choose how you want to slice and dice the data and will make a dataframe with your results. 
 
 ```{r}
 #ONLY RUN THIS IF YOU DON'T HAVE THESE PACKAGES
@@ -240,21 +240,6 @@ Use the same syntax to create a dataframe that has dropped one or more columns.
 ____ <- trip_detail %>% 
   select(_ ______)
 ```
- file of the repository
-# from the "Clone or download - Download ZIP" button
-# on the GitHub repository of interest
-download.file(url = "https://github.com/jumpingrivers/meetingsR/archive/master.zip"
-                                   , destfile = "meetingsR-master.zip")
+ 
 
-# unzip the .zip file
-unzip(zipfile = "meetingsR-master.zip")
-
-# set the working directory
-# to be inside the newly unzipped 
-# GitHub repository of interest
-setwd(dir = "/some/path/meetingsR-master/")
-
-# examine the contents
-list.files()
-```
 
