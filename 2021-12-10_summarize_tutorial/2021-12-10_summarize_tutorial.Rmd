@@ -1,0 +1,119 @@
+
+### What we are doing today
+
+Today we are going to import the same data we used last week on daily ridership and practice grouping and summarizing the data. You will have an opportunity to choose how you want to group and aggregate the data and will make a dataframe with your results. If you want more info, https://dplyr.tidyverse.org/reference/summarise.html is a great resource.
+
+```{r eval=FALSE}
+#ONLY RUN THIS IF YOU DON'T HAVE THESE PACKAGES
+install.packages("usethis")
+install.packages("tidyverse")
+install.packages("here")
+
+```
+
+
+```{r}
+#You need to load your packages every time you run an R script
+library(usethis)
+library(tidyverse)
+library(here)
+
+```
+
+### Let's get some data!
+
+We're going to use the same data we used last week. It's stored in the file directory for last week, so notice how I build the filepath below. If you're reading this, you've already downloaded the files and they are now on your computer. **However** filepaths are tricksy. If this doesn't work for you, let me know. 
+
+```{r Load in data}
+
+#we are reading in a dataframe of trip data from a zipped csv file
+
+trip_detail <- read_csv(here("2021-12-3_dplyr_tutorial", 
+                             "data", 
+                             "trip_detail_Fall_2021.zip"))
+
+```
+
+
+### Look at your data!
+
+Do you remember how to look at your dataframe? 
+  1. How many rows and columns does it have? 
+  2. What's the most recent observation date? 
+  3. What's the farthest in the past?
+  4. Did you get any warning messages when the data loaded in? If so, what do you think they mean?
+  
+### Grouping and aggregating your data
+
+One common question I get asked is to report on average daily ridership. Usually, I use the tables in T-BIRD that are already aggregated, but for the sake of learning grouping and aggregation in R, we are going to pretend that those tables don't exist. 
+
+Grouping and aggregating are key skills. *Grouping* is a way to tell R that you want to use a column in your table to define two or more subsets of data within the table. R will use the grouping variable to generate a summary for each group. *Summarizing* or aggregating is what you do when you need an average, sum, or count of your dataset. Let's do some examples. 
+
+*Grouping*
+
+The tidyverse command to group data is group_by(). 
+```{r}
+
+trip_detail_grouped_by_route <- trip_detail %>% 
+  group_by(SERVICE_RTE_NUM)
+
+```
+
+
+When we add in a summarize command, we can see how grouping affects the results. 
+
+```{r}
+route_summary <- trip_detail_grouped_by_route %>% 
+  summarise(sum_boarings = sum(PSNGR_BOARDINGS), 
+            count_trips = n(), )
+#n() is a special function. It counts the number of rows in a group. 
+
+```
+
+Look at the output of route_summary. How many rows/observations? What can you see? Do you think this is the right way to summarise this data?
+
+### Your turn
+
+OK, your turn. How would you fix my code above? (Hint, you need to add some extra grouping variables. In R, you can group by multiple columns. This is EXTREMELY useful.)
+
+```{r}
+
+trip_detail_grouped_by_route_day <- trip_detail %>% 
+  group_by(SERVICE_RTE_NUM, ___, ____)
+```
+
+
+```{r}
+route_day_summary <- trip_detail_grouped_by_route_day %>% 
+  summarise(sum_boarings = sum(PSNGR_BOARDINGS), 
+            count_trips = n())
+#each call to summarise will drop one level of grouping since that group is now just a single row. 
+```
+
+Now, look at the difference between route_summary and route_day_summary. What's different about them? Which one is more accurate? Why?
+
+# Your turn
+
+Choose a different grouping variables and create a summary based on that grouping. I'll get you started with the code structure below. Don't worry about whether or not the summary is "right". Just practice the technique. 
+
+```{r}
+#make sure to adjust the object name. Make it descriptive so you remember what it is later. 
+trip_detail_summarised_by_YOUR_VARIABLES_HERE <- trip_detail %>% 
+  group_by(____, ___, ____) %>% 
+  #i separated the commands above for clarity, but I usually pipe them #together. AKA I use %>%  to connect them using "and then" logic
+  summarise(____ = ____, 
+            ___ = ____)
+#You can create as many summary variables as you want. Common options #include:
+    # Center: mean(), median()
+    # 
+    # Spread: sd(), IQR(), mad()
+    # 
+    # Range: min(), max(), quantile()
+    # 
+    # Position: first(), last(), nth(),
+    # 
+    # Count: n(), n_distinct()
+    # 
+    # Logical: any(), all()
+```
+
