@@ -1,0 +1,158 @@
+---
+title: "2021-12-17 Data in T-BIRD"
+output: html_notebook
+---
+
+```{r install packages}
+#ONLY RUN EACH LINE IF YOU DON'T HAVE THE PACKAGE INSTALLED. 
+
+install.packages("DBI")
+install.packages("odbc")
+install.packages("tidyverse")
+
+```
+
+```{r load packages}
+
+library(DBI)
+library(odbc)
+library(tidyverse)
+
+```
+
+# Data in T-BIRD
+
+Today we are going to focus on getting data from T-BIRD into R. For this to work, you need to already have access to the T-BIRD data warehouse and be connected to the VPN. If you don't have access to T-BIRD, follow the steps on this site: https://kc1.sharepoint.com/teams/T-BIRD/SitePages/Access-requests-and-security-framework.aspx
+
+
+## Connecting to T-BIRD
+
+Connecting to the T-BIRD data warehouse requires using an open database connection, which leverages a driver to connect R and T-BIRD. The T-BIRD resource site has a lovely guide on connecting to T-BIRD via R. I usuall copy-paste code from the website when I need to get data from T-BIRD.  https://kc1.sharepoint.com/teams/T-BIRD/SitePages/Connecting-to-T-BIRD.aspx#r-and-python
+
+```{r connect to T-BIRD}
+server <- "kcitazrsqlprp01.database.windows.net"
+database = "tbird_dw"
+
+# Establish connection
+con <- DBI::dbConnect(odbc::odbc(), 
+                      Driver="ODBC Driver 17 for SQL Server",
+                      Server = server, Database = database,
+                      Authentication = "ActiveDirectoryIntegrated")
+
+# Get data from a select statement (creates a dataframe)
+#EXAMPLE. DO NOT RUN. 
+#data <- dbGetQuery(con, "select * from [schema].[table_name]")
+```
+
+
+## SQL vs. R
+
+T-BIRD is a SQL data warehouse, which means that you will need to write a SQL statement and send it to the data warehouse for processing. If you look at the example above, that is the thing in quotes: "select * from [schema].[table_name]"
+
+
+## Wait! I don't know SQL!!!
+
+
+It's ok! SQL is actually pretty simple, and you CAN do it. There are three basic parts to a SQL statement: 
+
+**SELECT** : What columns do you want to get from the table you are looking at? 
+**FROM**: What table are you looking at? Note: In T-BIRD, you need to specify the schema and the table name. Ex. DP.ALL_TRIPS is correct. ALL_TRIPS is not. 
+
+**WHERE**: Do you want to add a filter condition? All logical filters will work. (=, >, <, <=, <>, AND, OR, IN, NOT, LIKE). You can string logical filters together. The WHERE clause will respect your parenthesis. 
+
+## Let's Practice
+
+How would I get a dataset from T-BIRD of the TRIP_SUMMARY table for routes 131 and 132 during the Spring 2021 service change? 
+
+```{r}
+trip_summary_131_132 <-  dbGetQuery(con, "SELECT 
+                                    #What columns do we want?
+                                    
+                                    FROM 
+                                    #what schema and table are we looking at? 
+                                    
+                                    WHERE
+                                    # What are we filtering by? ")
+
+
+```
+
+
+```{r}
+trip_summary_131_132 <-  dbGetQuery(con, "SELECT 
+                                    SERVICE_CHANGE_NUM, 
+                                    SERVICE_RTE_NUM, 
+                                    SCHED_DAY_TYPE_CODED_NUM, 
+                                    EXPRESS_LOCAL_CD, 
+                                    INBD_OUTBD_CD, 
+                                    AVG_PSNGR_BOARDINGS
+                            
+                                    FROM DP.TRIP_SUMMARY
+                                    
+                                    WHERE
+                                    SERVICE_CHANGE_NUM = 211 ")
+
+
+```
+
+
+
+# Working with T-BIRD data in R
+
+Once you have your data in R, you can use any R function you want. For example, we could create a summary of average daily boardings on Route 131 and 132 using our data pull above. 
+
+```{r}
+route_summary_131_132 <- trip_summary_131_132 %>% 
+  group_by(SERVICE_RTE_NUM, EXPRESS_LOCAL_CD, SCHED_DAY_TYPE_CODED_NUM) %>% 
+  summarise(avg_daily_boardings = sum(AVG_PSNGR_BOARDINGS, na.rm = TRUE))
+
+#notice the na.rm argument. What do you think it is doing? How can you find out?
+
+```
+
+## Export your data
+ At some point, you probably want to export your data for non-R users. That's easy to do! My favorite way to export data is by using write_csv() from the readr package. 
+ 
+```{r}
+write_csv(route_summary_131_132, here::here("output", "Spring_2021_Route_131_132_summary.csv"))
+```
+ 
+
+## Let's try another example
+
+How could we write a SQL query to look at average stop boardings for Route 3 and 4 during the Fall 2020 service change?
+
+```{r}
+stop_summary_3_4 <-  dbGetQuery(con, "SELECT ______, 
+                                _________, 
+                                _________, 
+                                _________ 
+                                  --What columns do we want?
+                                    
+                                    FROM 
+                                    --what schema and table are we looking at? 
+                                    
+                                    WHERE
+                                  -- What are we filtering by? ")
+
+
+```
+
+Now that we have the data, practice summarizing or filtering it!
+
+```{r}
+
+route_3_4_cleaned_data <- stop_summary_3_4 %>% 
+  #analyst's choice! Practice filtering or summarizing the data
+```
+
+
+## This is  great, but what if I need a more complex SQL query? 
+
+1. Check the Analytics Portal for pre-written SQL code you can use. 
+
+https://kc1.sharepoint.com/teams/AnalyticsPortal/Shared%20Documents/Forms/AllItems.aspx?FilterField1=DocumentType&FilterValue1=SQL&FilterType1=MultiChoice&viewid=3d9b3388%2D34fe%2D4327%2Da2e5%2D0d669ed84b8e
+
+2. Reach out to me or transitbi@kingcounty.gov and we may be able to point you to other resources. 
+
+3. There are lots of online resources for learning SQL! W3 School is my favorite. https://www.w3schools.com/sql/default.asp
