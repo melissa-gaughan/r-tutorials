@@ -1,0 +1,415 @@
+﻿SERVICE_RTE_NUM,EXPRESS_LOCAL_CD,TRIP_COMPASS_DIR_CD,INBD_OUTBD_CD,AM Trip Count,PM Trip Count,All Trips,Peak or All Day
+1,L,S,I,4,4,68,All Day
+1,L,N,O,4,4,68,All Day
+2,L,N,I,5,5,83,All Day
+2,L,S,O,5,5,81,All Day
+3,L,N,I,6,4,85,All Day
+3,L,S,O,4,4,80,All Day
+4,L,N,I,3,3,48,All Day
+4,L,S,O,4,5,54,All Day
+5,E,S,I,6,,13,Peak
+5,E,N,O,,5,13,Peak
+5,L,S,I,6,4,82,All Day
+5,L,N,O,4,4,79,All Day
+7,L,N,I,7,8,123,All Day
+7,L,S,O,8,6,123,All Day
+8,L,E,I,5,5,84,All Day
+8,L,W,O,5,5,83,All Day
+9,E,N,I,4,1,16,Peak
+9,E,S,O,2,2,14,Peak
+10,L,S,I,6,6,93,All Day
+10,L,N,O,6,7,94,All Day
+11,L,S,I,4,4,73,All Day
+11,L,N,O,4,4,73,All Day
+12,L,S,I,6,6,84,All Day
+12,L,N,O,9,6,88,All Day
+13,L,S,I,4,4,50,All Day
+13,L,N,O,5,4,51,All Day
+14,L,N,I,4,4,69,All Day
+14,L,S,O,4,4,69,All Day
+15,E,S,I,7,,13,Peak
+15,E,N,O,,5,10,Peak
+17,E,S,I,4,,11,Peak
+17,E,N,O,,3,9,Peak
+18,E,S,I,4,,8,Peak
+18,E,N,O,,4,9,Peak
+19,L,S,I,3,,5,Peak
+19,L,N,O,,2,6,Peak
+21,E,N,I,4,,11,Peak
+21,E,S,O,,4,11,Peak
+21,L,N,I,4,3,68,All Day
+21,L,S,O,4,4,69,All Day
+22,L,N,I,1,1,15,Peak
+22,L,S,O,1,1,14,Peak
+24,L,S,I,4,2,41,All Day
+24,L,N,O,2,4,41,All Day
+26,E,S,I,5,2,45,All Day
+26,E,N,O,2,3,42,All Day
+27,L,N,I,2,3,34,All Day
+27,L,S,O,2,2,35,All Day
+28,E,S,I,9,2,56,All Day
+28,E,N,O,2,5,46,All Day
+29,L,S,I,4,,12,Peak
+29,L,N,O,,4,12,Peak
+31,L,E,I,3,3,35,All Day
+31,L,W,O,3,3,34,All Day
+32,L,E,I,4,3,45,All Day
+32,L,W,O,3,3,42,All Day
+33,L,S,I,3,2,41,All Day
+33,L,N,O,2,3,38,All Day
+36,L,N,I,7,8,132,All Day
+36,L,S,O,7,11,132,All Day
+37,E,N,I,1,,4,Peak
+37,L,S,O,,2,4,Peak
+40,L,S,I,10,6,102,All Day
+40,L,N,O,6,12,106,All Day
+41,L,S,I,12,4,104,All Day
+41,L,N,O,4,13,105,All Day
+43,L,S,I,2,,23,Peak
+43,L,N,O,3,2,20,Peak
+44,L,S,I,7,8,117,All Day
+44,L,N,O,7,7,110,All Day
+45,L,E,I,8,6,86,All Day
+45,L,W,O,5,8,89,All Day
+47,L,S,I,4,3,35,All Day
+47,L,N,O,3,3,35,All Day
+48,L,S,I,6,6,109,All Day
+48,L,N,O,7,5,102,All Day
+49,L,S,I,5,5,98,All Day
+49,L,N,O,6,5,98,All Day
+50,L,W,I,3,3,46,All Day
+50,L,E,O,3,3,46,All Day
+55,L,N,I,4,,11,Peak
+55,L,S,O,,4,12,Peak
+56,L,N,I,3,,10,Peak
+56,L,S,O,,3,9,Peak
+57,L,N,I,3,,5,Peak
+57,L,S,O,,2,5,Peak
+60,L,N,I,4,4,66,All Day
+60,L,S,O,4,4,63,All Day
+62,L,S,I,8,4,82,All Day
+62,L,N,O,4,6,81,All Day
+63,E,S,I,3,,8,Peak
+63,E,N,O,,2,10,Peak
+64,E,S,I,3,,7,Peak
+64,E,N,O,,3,9,Peak
+65,L,S,I,7,6,105,All Day
+65,L,N,O,6,7,107,All Day
+67,L,S,I,6,6,107,All Day
+67,L,N,O,7,6,105,All Day
+70,L,S,I,7,5,113,All Day
+70,L,N,O,8,8,109,All Day
+71,L,S,I,2,2,31,All Day
+71,L,N,O,3,2,31,All Day
+73,L,S,I,,,14,All Day
+73,L,N,O,,,18,All Day
+74,L,S,I,5,,24,All Day
+74,L,N,O,,4,22,All Day
+75,L,S,I,6,6,78,All Day
+75,L,N,O,4,6,79,All Day
+76,L,S,I,5,,15,Peak
+76,L,N,O,,4,13,Peak
+77,E,S,I,5,,12,Peak
+77,E,N,O,,3,10,Peak
+78,L,W,I,2,1,20,All Day
+78,L,E,O,2,1,20,All Day
+101,L,N,I,4,4,59,All Day
+101,L,S,O,4,5,64,All Day
+102,L,N,I,2,,12,Peak
+102,L,S,O,,5,12,Peak
+105,L,S,I,2,2,37,All Day
+105,L,N,O,2,2,34,All Day
+106,L,N,I,5,4,67,All Day
+106,L,S,O,4,4,66,All Day
+107,L,N,I,4,4,49,All Day
+107,L,S,O,2,4,47,All Day
+111,L,N,I,3,,10,Peak
+111,L,S,O,,3,9,Peak
+113,L,N,I,1,1,7,Peak
+113,L,S,O,,2,4,Peak
+114,L,N,I,4,,8,Peak
+114,L,S,O,,3,6,Peak
+116,E,N,I,4,,10,Peak
+116,E,S,O,,3,7,Peak
+118,E,N,I,,,2,Peak
+118,E,S,O,,1,2,Peak
+118,L,N,I,1,2,18,Peak
+118,L,S,O,1,1,16,Peak
+119,E,N,I,,,1,Peak
+119,E,S,O,,1,1,Peak
+119,L,N,I,1,1,8,Peak
+119,L,S,O,1,,9,Peak
+120,L,N,I,9,5,104,All Day
+120,L,S,O,6,9,104,All Day
+121,L,N,I,3,2,19,Peak
+121,L,S,O,2,5,18,Peak
+122,L,N,I,2,,6,Peak
+122,L,S,O,,2,8,Peak
+123,L,N,I,1,,4,Peak
+123,L,S,O,,2,5,Peak
+124,L,N,I,4,4,68,All Day
+124,L,S,O,4,4,69,All Day
+125,L,N,I,3,3,39,All Day
+125,L,S,O,3,3,39,All Day
+128,L,S,I,2,2,40,All Day
+128,L,N,O,3,2,37,All Day
+131,L,N,I,4,3,44,All Day
+131,L,S,O,2,2,38,All Day
+132,L,N,I,2,3,41,All Day
+132,L,S,O,3,2,39,All Day
+143,E,N,I,,,6,Peak
+143,E,S,O,,3,6,Peak
+143,L,N,I,,,1,Peak
+143,L,S,O,,,1,Peak
+148,L,N,I,2,2,30,All Day
+148,L,S,O,2,2,30,All Day
+150,L,N,I,4,4,66,All Day
+150,L,S,O,4,4,67,All Day
+153,L,N,I,2,2,28,All Day
+153,L,S,O,2,2,27,All Day
+154,L,N,I,1,,4,Peak
+154,L,S,O,,1,4,Peak
+156,L,E,I,3,2,35,All Day
+156,L,W,O,4,2,35,All Day
+157,L,N,I,1,,4,Peak
+157,L,S,O,,2,3,Peak
+158,L,N,I,1,,6,Peak
+158,L,S,O,,2,6,Peak
+159,L,N,I,,,5,Peak
+159,L,S,O,,1,4,Peak
+164,L,W,I,2,2,35,All Day
+164,L,E,O,2,2,35,All Day
+166,L,S,I,2,2,37,All Day
+166,L,N,O,2,2,36,All Day
+167,L,N,I,2,,4,Peak
+167,L,S,O,,2,5,Peak
+168,L,W,I,2,2,33,All Day
+168,L,E,O,2,2,33,All Day
+169,L,S,I,4,4,61,All Day
+169,L,N,O,4,4,63,All Day
+177,L,N,I,3,,9,Peak
+177,L,S,O,,2,9,Peak
+178,L,N,I,2,,7,Peak
+178,L,S,O,,4,8,Peak
+179,L,N,I,3,,10,Peak
+179,L,S,O,,3,9,Peak
+180,L,N,I,4,2,46,All Day
+180,L,S,O,2,4,47,All Day
+181,L,W,I,4,2,39,All Day
+181,L,E,O,4,2,39,All Day
+182,L,N,I,2,2,21,Peak
+182,L,S,O,1,2,21,Peak
+183,L,N,I,1,1,30,All Day
+183,L,S,O,2,2,29,All Day
+186,L,W,I,1,,11,Peak
+186,L,E,O,1,2,9,Peak
+187,L,N,I,1,2,23,Peak
+187,L,S,O,1,2,23,Peak
+190,L,N,I,4,,8,Peak
+190,L,S,O,,3,7,Peak
+192,L,N,I,1,,4,Peak
+192,L,S,O,,2,4,Peak
+193,E,N,I,2,,7,Peak
+193,E,S,O,,2,7,Peak
+197,L,N,I,2,,7,Peak
+197,L,S,O,,2,9,Peak
+200,L,N,I,,,9,All Day
+200,L,S,O,,,9,All Day
+204,L,N,I,2,1,18,Peak
+204,L,S,O,2,2,17,Peak
+208,L,W,I,,,7,Peak
+208,L,E,O,1,,8,Peak
+212,L,W,I,9,2,31,Peak
+212,L,E,O,4,8,29,Peak
+214,L,W,I,6,,14,Peak
+214,L,E,O,,5,13,Peak
+216,L,W,I,2,,6,Peak
+216,L,E,O,,3,8,Peak
+217,L,E,I,2,,4,Peak
+217,L,W,O,,1,3,Peak
+218,L,W,I,7,,19,Peak
+218,L,E,O,,5,9,Peak
+219,L,W,I,1,,6,Peak
+219,L,E,O,,2,9,Peak
+221,L,N,I,2,2,32,All Day
+221,L,S,O,2,2,33,All Day
+224,L,W,I,,1,10,Peak
+224,L,E,O,1,,9,Peak
+226,L,E,I,2,2,33,All Day
+226,L,W,O,2,2,33,All Day
+232,L,W,I,2,1,9,Peak
+232,L,E,O,1,1,9,Peak
+234,L,S,I,2,2,29,All Day
+234,L,N,O,2,2,32,All Day
+235,L,S,I,2,2,36,All Day
+235,L,N,O,2,2,38,All Day
+236,L,S,I,2,2,29,All Day
+236,L,N,O,2,2,28,All Day
+237,L,S,I,1,,3,Peak
+237,L,N,O,,1,2,Peak
+238,L,S,I,2,2,28,All Day
+238,L,N,O,2,2,26,All Day
+240,L,S,I,3,3,47,All Day
+240,L,N,O,4,4,44,All Day
+241,L,S,I,2,2,32,All Day
+241,L,N,O,2,2,32,All Day
+243,E,N,I,,,4,Peak
+243,E,S,O,,,4,Peak
+244,L,S,I,2,,5,Peak
+244,L,N,O,,2,5,Peak
+245,L,S,I,5,5,60,All Day
+245,L,N,O,5,5,60,All Day
+246,L,S,I,1,1,14,Peak
+246,L,N,O,,1,14,Peak
+248,L,W,I,2,2,34,All Day
+248,L,E,O,2,2,34,All Day
+249,L,W,I,2,1,21,All Day
+249,L,E,O,2,1,22,All Day
+252,L,W,I,2,,8,Peak
+252,L,E,O,,3,8,Peak
+255,L,W,I,8,6,76,All Day
+255,L,E,O,6,7,80,All Day
+257,L,W,I,2,,7,Peak
+257,L,E,O,,2,6,Peak
+268,L,W,I,2,,5,Peak
+268,L,E,O,,2,5,Peak
+269,L,S,I,2,3,28,All Day
+269,L,N,O,3,2,27,All Day
+271,L,W,I,7,8,79,All Day
+271,L,E,O,7,7,76,All Day
+277,L,W,I,2,,6,Peak
+277,L,E,O,,2,6,Peak
+301,E,S,I,6,,15,Peak
+301,E,N,O,,6,16,Peak
+301,L,S,I,,2,5,Peak
+301,L,N,O,2,,3,Peak
+303,E,S,I,3,,11,Peak
+303,E,N,O,,3,11,Peak
+304,L,S,I,2,,4,Peak
+304,L,N,O,,2,5,Peak
+308,L,S,I,1,,4,Peak
+308,L,N,O,,2,3,Peak
+309,E,S,I,2,,5,Peak
+309,E,N,O,,2,4,Peak
+311,L,W,I,5,,14,Peak
+311,L,E,O,,5,12,Peak
+312,E,S,I,9,,23,Peak
+312,E,N,O,,8,23,Peak
+316,L,S,I,5,,10,Peak
+316,L,N,O,,4,9,Peak
+330,L,E,I,1,1,13,Peak
+330,L,W,O,1,1,13,Peak
+331,L,W,I,3,2,29,All Day
+331,L,E,O,2,2,25,All Day
+342,L,S,I,,,5,Peak
+342,L,N,O,,2,4,Peak
+345,L,S,I,2,2,36,All Day
+345,L,N,O,2,2,34,All Day
+346,L,S,I,2,2,36,All Day
+346,L,N,O,2,2,34,All Day
+347,L,S,I,2,2,32,All Day
+347,L,N,O,2,2,31,All Day
+348,L,S,I,2,2,31,All Day
+348,L,N,O,2,2,31,All Day
+355,E,S,I,4,,10,Peak
+355,E,N,O,,3,9,Peak
+372,E,S,I,9,4,79,All Day
+372,E,N,O,4,7,78,All Day
+373,E,S,I,5,4,31,Peak
+373,E,N,O,2,3,24,Peak
+522,E,S,I,7,2,52,All Day
+522,E,N,O,2,8,51,All Day
+542,E,W,I,4,4,44,All Day
+542,E,E,O,3,4,46,All Day
+545,E,W,I,11,6,93,All Day
+545,E,E,O,8,10,92,All Day
+550,E,W,I,12,6,89,All Day
+550,E,E,O,6,11,92,All Day
+554,E,W,I,4,2,48,All Day
+554,E,E,O,2,3,46,All Day
+555,E,E,I,3,,9,Peak
+555,E,W,O,,2,8,Peak
+556,E,E,I,,2,9,Peak
+556,E,W,O,2,,10,Peak
+627,L,N,O,,,5,Peak
+628,E,W,I,,1,5,Peak
+628,E,E,O,2,,4,Peak
+628,L,W,I,2,,7,Peak
+628,L,E,O,,2,8,Peak
+629,L,N,I,,1,9,Peak
+629,L,S,O,,1,9,Peak
+630,L,W,I,2,,5,Peak
+630,L,E,O,,2,5,Peak
+631,L,E,I,,1,17,All Day
+631,L,W,O,1,1,17,All Day
+633,L,S,I,1,,3,Peak
+633,L,N,O,,,3,Peak
+635,L,N,I,4,3,41,All Day
+635,L,S,O,3,4,42,All Day
+661,L,N,I,,,3,Peak
+661,L,S,O,,,3,Peak
+671,L,N,I,6,6,92,All Day
+671,L,S,O,6,6,92,All Day
+672,L,W,I,6,6,87,All Day
+672,L,E,O,6,6,86,All Day
+673,L,N,I,15,8,125,All Day
+673,L,S,O,8,12,123,All Day
+674,L,S,I,9,8,119,All Day
+674,L,N,O,8,9,117,All Day
+675,L,S,I,15,6,136,All Day
+675,L,N,O,6,14,135,All Day
+676,L,W,I,6,6,79,All Day
+676,L,E,O,6,6,81,All Day
+773,L,S,I,2,1,12,Peak
+773,L,N,O,2,2,12,Peak
+775,L,S,I,2,1,14,Peak
+775,L,N,O,1,1,14,Peak
+893,L,S,I,1,,1,Peak
+893,L,N,O,,,1,Peak
+895,E,N,I,1,,1,Peak
+895,E,S,O,,,1,Peak
+901,L,N,I,2,2,30,All Day
+901,L,S,O,2,2,30,All Day
+903,L,N,I,2,2,22,Peak
+903,L,S,O,2,2,20,Peak
+906,L,W,I,2,2,18,All Day
+906,L,E,O,2,2,18,All Day
+907,L,N,I,1,1,10,Peak
+907,L,S,O,,,8,Peak
+908,L,S,I,,1,10,Peak
+908,L,N,O,,1,10,Peak
+910,L,S,I,1,,9,Peak
+910,L,N,O,,1,9,Peak
+913,L,E,I,2,2,13,Peak
+913,L,W,O,2,2,14,Peak
+914,L,W,I,,,7,Peak
+914,L,E,O,,,8,Peak
+915,L,W,I,,1,8,Peak
+915,L,E,O,,,8,Peak
+916,L,W,I,,1,7,Peak
+916,L,E,O,,1,8,Peak
+917,L,N,I,1,1,14,Peak
+917,L,S,O,1,1,14,Peak
+930,L,W,I,2,2,14,Peak
+930,L,E,O,2,2,15,Peak
+931,L,S,I,2,2,15,Peak
+931,L,N,O,2,2,15,Peak
+952,E,N,I,,,4,Peak
+952,E,S,O,,2,4,Peak
+980,E,N,I,,,1,Peak
+981,E,E,O,,,1,Peak
+982,E,W,I,,,1,Peak
+982,E,E,O,,,1,Peak
+984,E,S,I,,,1,Peak
+986,E,E,I,,,1,Peak
+986,E,W,O,1,,1,Peak
+987,E,N,I,,,1,Peak
+987,E,S,O,,,1,Peak
+988,E,N,I,,,1,Peak
+988,E,S,O,,,1,Peak
+989,E,E,I,,,1,Peak
+989,E,W,O,,,1,Peak
+994,E,N,I,,,1,Peak
+994,E,S,O,,,1,Peak
+995,E,N,I,1,,1,Peak
+995,E,S,O,,,1,Peak

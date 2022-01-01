@@ -1,0 +1,167 @@
+---
+title: "2022-01-07_projects_filepaths_workflow"
+author: "Melissa Gaughan"
+date: "12/31/2021"
+output: html_document
+---
+
+# Projects, file paths & workflow
+
+Today we're not going to talk about how to code but will instead focus on getting yourself set up to code well in R. We're going to dive deep on projects, talk about dealing with file paths and go over my typical workflow.
+
+As you begin to experiment in R on your own, you are likely to develop your own preferences. That is fine! This is just an overview of how I do things *right now*, but I am always tweaking and improving things, so you may find yourself doing the same.
+
+The goal today is to get you comfortable with the basics so that you can start to make those choices. For intermediate and advanced skills, google is your friend.
+
+## Projects
+
+You can think of R Projects as a container for all code associated with one project or process. I usually have one project for each analysis I am working on. For example, I have an R project for my West Seattle Bridge analysis and another for pandemic ridership analysis. There are a couple very good reasons to have lots of separate projects:
+
+1.  It keeps your work neat. It's easier to follow dependencies when there is not cross contamination between analysis tasks.
+2.  It makes it easy to start from a clean slate. (In other words, it encourages you to restart R, which is a best practice when starting a new analysis).
+3.  It helps with reproducibility.
+
+### Ok, I'll bite. How do I use an R project?
+
+The best way to use an R project is to mouse up to the right hand upper corner of R Studio. If you opened this file from github, it probably says "melissa-gaughan-metro-r-tutorials-randomdigitshere". If you opened this file from wherever it's saved on your computer, it probably says project(none). Either way, **click the little arrow to the right of the words.**
+
+Once you're in the menu, you're going to have the option to open a project or create a project. If you want to return to an existing project, click open. If you want to create a new project, click create. For right now, **click New Project.**
+
+This will open up the New Project Wizard. You can associate a new project with an existing directory (useful if you've already started a project and don't want to move it) or create a new directory. Notice that you can also add version control (i.e. a connection to github. This is very useful, but we are not going to mess with it today).
+
+**Click New Directory and choose "New Project"**. Then, add a name for your new directory and choose a parent directory for your project. I like to keep all my R projects and their folders in one place on my computer. This helps me not lose work.
+
+**Choose Open Project in new session**. You will now have two R windows open. This is OK! Take a minute and notice what is different about the two environments. Also use your file explorer to look at your new project directory and see what's there.
+
+### Some quick notes
+
+-   Each distinct analysis should get its own R project.
+
+-   **DO NOT** nest R projects within one another. You will hurt yourself. Trust me.
+
+-   File system discipline: put all the files related to a single project in a designated folder. This applies to data, code, figures, notes, etc. Depending on project complexity, you might enforce further organization into subfolders.
+
+-   Working directory intentionality: when working on project A, make sure working directory is set to project A's folder. Ideally, this is achieved via the development workflow and tooling, not by baking absolute paths into the code.
+
+-   File path discipline: all paths are relative and, by default, relative to the project's folder.
+
+These habits are synergistic: you'll get the biggest payoff if you practice all of them together.
+
+These habits guarantee that the project can be moved around on your computer or onto other computers and will still "just work". I argue that this is the only practical convention that creates reliable, polite behavior across different computers or users and over time. This convention is neither new, nor unique to R.
+
+It's like agreeing that we will all drive on the left or the right. A hallmark of civilization is following conventions that constrain your behavior a little, in the name of public safety.
+
+## File paths
+
+Ok, so now that you know how to create a project and understand why we use projects, let's practice importing data that's stored locally on your computer. There are two main ways to do this:
+
+1.  Specify the whole dang filepath: "c://mgaughan/documents/somerandomproject/data/mydata.csv"
+
+! Notice that the file path uses forward slash "/" and not backslash "\\". I replaced all these using Ctrl+F.
+
+You will end up using setwd() to manually set and change the filepath a lot. It's bad news bears.
+
+2.  Use the here package to manage file paths for you.
+
+### Why should I care about filepaths???
+
+1.  **Reproducibility.** The filepath above has my user id in it. It will not work for you even if you imported the whole directory or were referencing a file on sharepoint. Honestly, it probably won't work for me on my next County computer. It's brittle. It's going to break and it's a matter of when not if.
+
+2.  **Ctrl+F replacement of slashes are annoying**. Hand-editing code over and over again is exactly the type of thing we are trying to avoid by writing code. Let's not do it.
+
+3.  **Good data habits.** You're less likely to reference something that's stored somewhere random (or somewhere that someone else can change or move it without your knowledge) if you are using relative paths. Trust me, there's nothing like the feeling of getting an error in R and realizing that your input data has gotten up and walked away.
+
+### Practice safe paths
+
+The best way to make your paths safe is to use relative paths. That is, the path of your file is built in reference to the location of the directory. That way, if I move the entire directory to a different spot on my computer or send it to someone else, *it doesn't matter as long as the sub-folders are the same*.
+
+You're probably thinking that this seems really complicated. Luckily for us, the here package is designed specifically to help you manage relative filepaths.
+
+## The here package (aka filepath sanity)
+
+```{r}
+# ONLY RUN THIS IF YOU DON'T HAVE THE PACKAGE INSTALLED
+install.packages("here")
+```
+
+```{r}
+library(here)
+library(tidyverse)
+library(readxl)
+```
+
+When you load the here library, what does the message tell you?
+
+### Important notes on the here package
+
+1.  The here package is used to build paths inside a project. All filepaths are **relative** to the directory your project is associated with.
+
+2.  Here is OS agnostic. If you write code on a windows machine and then transfer it to a mac, you will not need to edit your filepaths.
+
+3.  Do NOT change the working directory with setwd() if you are using here.
+
+4.  Here will build your full filepaths for you when you run your code.
+
+### Time to practice
+
+```{r}
+
+# run this line and look at the output. What did here do with the input we gave it?
+ here("2022-01-07_projects_filepaths_workflows", "data", "193_AM_PM_Trip_Counts.csv")
+
+# read in 193 trip counts from the data subfolder
+trip_193 <- read_csv(file = here("2022-01-07_projects_filepaths_workflows", "data", "193_AM_PM_Trip_Counts.csv"))
+
+
+# read in 213 trip counts from the data subfolder
+
+trip_213 <- # Fill in the code here!!!
+  
+# read in planner assignments from the data subfolder  
+  
+planner_assignments <- read_xlsx(________)  # Fill in the code here!!!
+  
+
+```
+
+### This is my happy place! Where can I learn more?
+
+Again, the internet is your friend. Check out <https://cran.r-project.org/web/packages/here/vignettes/here.html> for examples and a deep dive on the full usage of the here package.
+
+## Workflow
+
+As most people who have been at Metro for longer than a week know, workflow and file management are....not standardized. I am going to talk about how I do things, but the reality is that you will probably need to balance good data practices with the existing infrastructure and habits of your team.
+
+### Using OneDrive
+
+I store all of the work I do in R on my OneDrive in a folder called "Projects." This folder is NOT an R Project, but is a convenient way to keep all my active work in one spot.
+
+**Note:** OneDrive and SharePoint WILL NOT work with github. If you get to a point where you need the version control functions of github, you will need to store things on your local computer and then back up your code consistently.
+
+Each folder in my "Projects" folder is associated with an R Project that holds the code, data, and methods for one body of work. My typical folders within each directory are:
+
+-   Data
+-   Output
+-   Methods
+-   R-scripts
+
+Other common folders I use (depending on the project) include:
+
+-   SQL
+-   Power-BI
+-   Intermediate-Output
+
+That's it, really. Just be consistent and find a system that works for you.
+
+## And finally, file names
+
+Here are some basic rules for file names. Again, these are my rules, not universal truths. Figure out what works for you and be consistent. Basically, make your file names machine readable, human readable, and sortable. In practice, here are some tips:
+
+-   No spaces. SharePoint, GIS and other programs HATE spaces.
+-   Date your files. Use YYYY-MM-DD ordering to ensure that the sorting actually works across years. (Think about how your file explorer would treat four files labeled "1-1-2021", "1-1-2022", "1-2-2021", "1-2-2022" vs four files labeled "2021-01-01", "2021-01-02", "2022-01-01", "2022-01-02". One of these is clearly superior. I will die on this hill.)
+-   If you have a sequential series of scripts, number them. This will help you and others.
+-   Left pad numbers with zeros to handle character sorting of numbers.
+
+I STRONGLY recommend you browse through this slide deck from Jenny Bryan (stats prof and R goddess) where she talks about file name practices in detail. <https://speakerdeck.com/jennybc/how-to-name-files?slide=27>
+
+You got this friends. Go forth and do good.
