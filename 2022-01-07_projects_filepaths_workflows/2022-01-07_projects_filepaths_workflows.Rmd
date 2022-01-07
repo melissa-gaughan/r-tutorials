@@ -25,6 +25,8 @@ You can think of R Projects as a container for all code associated with one proj
 
 The best way to use an R project is to mouse up to the right hand upper corner of R Studio. If you opened this file from github, it probably says "melissa-gaughan-metro-r-tutorials-randomdigitshere". If you opened this file from wherever it's saved on your computer, it probably says project(none). Either way, **click the little arrow to the right of the words.**
 
+**Note:** If having multiple projects named "melissa-gaughan-metro-r-tutorials-randomdigitshere" is driving you nuts, you can rename the project. Close out of RStudio, find the folder for the project in your working directory, and rename it. Then, open the folder and click on the document in the folder that ends in ".Rproj". This will open the project in R Studio and you should see that the project is now renamed.
+
 Once you're in the menu, you're going to have the option to open a project or create a project. If you want to return to an existing project, click open. If you want to create a new project, click create. For right now, **click New Project.**
 
 This will open up the New Project Wizard. You can associate a new project with an existing directory (useful if you've already started a project and don't want to move it) or create a new directory. Notice that you can also add version control (i.e. a connection to github. This is very useful, but we are not going to mess with it today).
