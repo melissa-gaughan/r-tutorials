@@ -1,0 +1,202 @@
+---
+title: "2022-01-14_table-and-spatial-joins_answers"
+output: html_notebook
+---
+
+```{r}
+
+library(DBI)
+library(odbc)
+library(tidyverse)
+library(readxl)
+library(here)
+
+```
+
+## Overview
+
+Today we're going to talk about joins, the art of smushing two or more datasets together to create new insights. Every data analysis programming language has a way of joining data together. Today we are going to talk about joins in R and demonstrate how they can lead to new insights using T-BIRD data. 
+
+## Types of Joins
+
+![types of joins](2022-01-14_dataframe_and_spatial_joins/images/types_of_joins.png)
+
+## Joins in R
+
+The dplyr package has a series of functions that allow you to join datasets together based on one or more common variables. You can find full documentation of joins in R with great examples at this website:
+
+https://dplyr.tidyverse.org/articles/two-table.html?q=join#mutating-joins
+
+
+```{r eval=FALSE}
+
+left_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
+right_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
+anti_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
+inner_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
+semi_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
+full_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
+```
+
+
+Today, we're mostly going to work with left joins, which are by far the most common. However, in the "your turn" section, I encourage you to try out an anti_join or a full_join just to see what happens. 
+
+First, let's read in some data. Let's say that we want to do some analysis of bus passups based on month and route characteristics. 
+
+```{r connect to T-BIRD}
+
+server <- "kcitazrsqlprp01.database.windows.net"
+database = "tbird_dw"
+
+# Establish connection
+con <- DBI::dbConnect(odbc::odbc(), 
+                      Driver="ODBC Driver 17 for SQL Server",
+                      Server = server, Database = database,
+                      Authentication = "ActiveDirectoryIntegrated")
+
+# Get data from a select statement (creates a dataframe)
+#EXAMPLE. DO NOT RUN. 
+bus_passups_fall_2021 <- dbGetQuery(con, "SELECT  FULL_DATE
+      ,SCHED_DAY_TYPE_CODED_NUM
+      ,DAY_PART_CD
+      ,MESSAGE_TIME_SECONDS_AFTER_MIDNT
+      ,STOP_ID
+      ,SERVICE_RTE_NUM
+      ,INBD_OUTBD_CD
+      ,TRIP_ID
+      ,VEHICLE_ID
+      ,MESSAGE
+      ,MESSAGE_TEXT
+      ,OBSERVED_FLAG
+      ,MAX_PSNGR_LOAD
+      ,TB_UPDATED_DATE
+  FROM DP.BUS_PASSUPS
+  WHERE FULL_DATE >= CAST('2021-10-02'AS DATE)
+  AND FULL_DATE < CAST('2022-01-01' AS DATE)
+  AND MESSAGE_TEXT <> 'Resume pick up of customers'")
+
+all_trips_fall_2021 <- dbGetQuery(con," SELECT TRIP_ID, SERVICE_RTE_NUM, EXPRESS_LOCAL_CD,  SEAT_CNT, BUS_TYPE_NUM, SCHED_DAY_TYPE_CODED_NUM, SERVICE_CHANGE_NUM
+                                  FROM DP.ALL_TRIPS
+                                  WHERE SERVICE_CHANGE_NUM = 213
+                                  AND WORKING_LOAD_STATUS = 'FINAL'
+                                  AND MINOR_CHANGE_NUM = 0
+                                  AND TRIP_KIND_CD = 'S'") %>% 
+  group_by(SERVICE_RTE_NUM, EXPRESS_LOCAL_CD,  SCHED_DAY_TYPE_CODED_NUM, SERVICE_CHANGE_NUM) %>% 
+  mutate(daily_trips = n())
+
+route_metadata <- dbGetQuery(con, "SELECT 
+                             SERVICE_RTE_NUM, 
+                             EXPRESS_LOCAL_CD,
+                             SERVICE_RTE_NM,
+                             SERVICE_RTE_DESC, 
+                             SERVICE_TYPE,CD, 
+                             LOW_INCOME_FLAG,
+                             MINORITY_FLAG, 
+                             OPPORTUNITY_SCORE,
+                             SVC_FAMILY
+  FROM EDW.DIM_ROUTE
+  WHERE IS_ACTIVE_FLAG = 1
+  AND OWNER_AGENCY_CD = 'KCM'
+  AND OPERATOR_AGENCY_CD = 'KCM'
+  AND SERVICE_TYPE_CD <> 'DART'")
+
+date_table <- dbGetQuery(con,"SELECT FULL_DATE, CAL_YEAR_NUM, CAL_MONTH_IN_YEAR_NUM, SERVICE_DAY_TYPE_CODE, CAL_MONTH_LONG_NAME
+                         
+                         FROM EDW.DIM_DATE") %>% 
+  group_by(CAL_YEAR_NUM, CAL_MONTH_IN_YEAR_NUM, SERVICE_DAY_TYPE_CODE) %>% mutate(DAYS_IN_MONTH = n())
+
+planner_assignments <- read_xlsx(here("2022-01-14_dataframe_and_spatial_joins", "data", "planner_assignments.xlsx"), sheet = "Routes by planner")
+
+
+```
+
+
+Let's start by joining bus passups to all_trips. What are the common variables? What type of join do we want? (Hint: which dataframe is it most important to keep all rows from?)
+
+```{r}
+bus_passups_with_metadata <- left_join(bus_passups_fall_2021, all_trips_fall_2021,
+                                       by = c("SERVICE_RTE_NUM", "TRIP_ID", "SCHED_DAY_TYPE_CODED_NUM"))
+```
+
+Take a look at your new dataframe. How many observations does the joined data have compared to the original datasets?
+
+Now that we have the express/local code from the all trips table, we can join to the route metadata table. Create a table that has a join to the route_metadata table. 
+
+
+```{r}
+bus_passups_with_metadata <- left_join(bus_passups_fall_2021, all_trips_fall_2021,
+                                       by = c("SERVICE_RTE_NUM", "TRIP_ID", "SCHED_DAY_TYPE_CODED_NUM")) %>% 
+  
+  left_join(route_metadata, by = c("SERVICE_RTE_NUM", "EXPRESS_LOCAL_CD"))
+```
+
+Now, let's try adding date info to our passup table. 
+
+
+```{r}
+bus_passups_with_metadata <-bus_passups_with_metadata %>% 
+  left_join( date_table,    by = "FULL_DATE")
+```
+
+How many observations do we have? Is it the same number as earlier? (It's important to check if your table is getting bigger, because that indicates that something is wrong in your join)
+
+Finally, let's join planner assignments. 
+
+```{r}
+bus_passups_with_metadata <-bus_passups_with_metadata %>% 
+  left_join( planner_assignments,    by = c("SERVICE_RTE_NUM" = "Routes"))
+```
+What does this error message mean? How can we fix it? (Hint: Look at the planner_assignments variable types.)
+
+
+Let's try to clean up the planner_assignments dataframe. 
+
+```{r}
+clean_planner_assignments <- planner_assignments %>% 
+  mutate(route_number = case_when(Routes == "A (671)" ~ "671", 
+                                  Routes == "B (672)" ~ "672",
+                                  Routes == "C (673)" ~ "673",
+                                  Routes == "D (674)" ~ "674",
+                                  Routes == "E (675)" ~ "675",
+                                  Routes == "F (676)" ~ "676",
+                                TRUE ~ Routes  )) %>% 
+  mutate(route_number = as.numeric(route_number)) %>% 
+  #as a precaution, I am going to drop duplicate rows
+  distinct(route_number, .keep_all = TRUE)
+  
+```
+
+Let's try our join again. 
+
+
+```{r}
+bus_passups_with_metadata <-bus_passups_with_metadata %>% 
+  left_join( clean_planner_assignments,    by = c("SERVICE_RTE_NUM" = "route_number"))
+```
+
+Ok, now we have a crazy wide dataframe. Let's pick a few variables to summarize by. I will provide an example, but you can choose what you want. 
+
+```{r}
+  bus_passup_summary <- bus_passups_with_metadata %>% 
+    select(SERVICE_RTE_NUM, EXPRESS_LOCAL_CD, MESSAGE_TEXT, LOW_INCOME_FLAG, MINORITY_FLAG, OPPORTUNITY_SCORE, Lead, CAL_MONTH_IN_YEAR_NUM, CAL_YEAR_NUM, DAYS_IN_MONTH, SCHED_DAY_TYPE_CODED_NUM, daily_trips) %>% 
+    group_by(SERVICE_RTE_NUM, EXPRESS_LOCAL_CD, MESSAGE_TEXT, LOW_INCOME_FLAG, MINORITY_FLAG, OPPORTUNITY_SCORE, Lead, CAL_MONTH_IN_YEAR_NUM, CAL_YEAR_NUM, DAYS_IN_MONTH, SCHED_DAY_TYPE_CODED_NUM,  daily_trips) %>% 
+    summarise(sum_monthly_passups = n()) %>% 
+mutate(average_daily_passups =sum_monthly_passups/ DAYS_IN_MONTH, 
+       monthly_trips = daily_trips * DAYS_IN_MONTH, 
+       pct_trips_with_passup = sum_monthly_passups/monthly_trips)
+```
+
+
+## Your turn
+
+Think of a way to join and summarize the datasets. Maybe you could identify routes that have no passups? Maybe you could look at the rate of passups based on equity criteria? Or summarize the data based on planner assignment? You could also decide if it's important to differentiate between the different types of passups. If not, how would you summarize all passup types?
+
+```{r}
+
+
+
+```
+
+
+
+
