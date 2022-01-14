@@ -15,18 +15,17 @@ library(here)
 
 ## Overview
 
-Today we're going to talk about joins, the art of smushing two or more datasets together to create new insights. Every data analysis programming language has a way of joining data together. Today we are going to talk about joins in R and demonstrate how they can lead to new insights using T-BIRD data. 
+Today we're going to talk about joins, the art of smushing two or more datasets together to create new insights. Every data analysis programming language has a way of joining data together. Today we are going to talk about joins in R and demonstrate how they can lead to new insights using T-BIRD data.
 
 ## Types of Joins
 
-![types of joins](2022-01-14_dataframe_and_spatial_joins/images/types_of_joins.png)
+![types of joins](images/types_of_joins.png)
 
 ## Joins in R
 
 The dplyr package has a series of functions that allow you to join datasets together based on one or more common variables. You can find full documentation of joins in R with great examples at this website:
 
-https://dplyr.tidyverse.org/articles/two-table.html?q=join#mutating-joins
-
+<https://dplyr.tidyverse.org/articles/two-table.html?q=join#mutating-joins>
 
 ```{r eval=FALSE}
 
@@ -38,10 +37,9 @@ semi_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
 full_join( x, y, by = c("variable_goes_here", "variable_2_goes_here"))
 ```
 
+Today, we're mostly going to work with left joins, which are by far the most common. However, in the "your turn" section, I encourage you to try out an anti_join or a full_join just to see what happens.
 
-Today, we're mostly going to work with left joins, which are by far the most common. However, in the "your turn" section, I encourage you to try out an anti_join or a full_join just to see what happens. 
-
-First, let's read in some data. Let's say that we want to do some analysis of bus passups based on month and route characteristics. 
+First, let's read in some data. Let's say that we want to do some analysis of bus passups based on month and route characteristics.
 
 ```{r connect to T-BIRD}
 
@@ -110,7 +108,6 @@ planner_assignments <- read_xlsx(here("2022-01-14_dataframe_and_spatial_joins", 
 
 ```
 
-
 Let's start by joining bus passups to all_trips. What are the common variables? What type of join do we want? (Hint: which dataframe is it most important to keep all rows from?)
 
 ```{r}
@@ -120,8 +117,7 @@ bus_passups_with_metadata <- left_join(bus_passups_fall_2021, all_trips_fall_202
 
 Take a look at your new dataframe. How many observations does the joined data have compared to the original datasets?
 
-Now that we have the express/local code from the all trips table, we can join to the route metadata table. Create a table that has a join to the route_metadata table. 
-
+Now that we have the express/local code from the all trips table, we can join to the route metadata table. Create a table that has a join to the route_metadata table.
 
 ```{r}
 bus_passups_with_metadata <- left_join(bus_passups_fall_2021, all_trips_fall_2021,
@@ -130,8 +126,7 @@ bus_passups_with_metadata <- left_join(bus_passups_fall_2021, all_trips_fall_202
   left_join(route_metadata, by = c("SERVICE_RTE_NUM", "EXPRESS_LOCAL_CD"))
 ```
 
-Now, let's try adding date info to our passup table. 
-
+Now, let's try adding date info to our passup table.
 
 ```{r}
 bus_passups_with_metadata <-bus_passups_with_metadata %>% 
@@ -140,16 +135,16 @@ bus_passups_with_metadata <-bus_passups_with_metadata %>%
 
 How many observations do we have? Is it the same number as earlier? (It's important to check if your table is getting bigger, because that indicates that something is wrong in your join)
 
-Finally, let's join planner assignments. 
+Finally, let's join planner assignments.
 
 ```{r}
 bus_passups_with_metadata <-bus_passups_with_metadata %>% 
   left_join( planner_assignments,    by = c("SERVICE_RTE_NUM" = "Routes"))
 ```
+
 What does this error message mean? How can we fix it? (Hint: Look at the planner_assignments variable types.)
 
-
-Let's try to clean up the planner_assignments dataframe. 
+Let's try to clean up the planner_assignments dataframe.
 
 ```{r}
 clean_planner_assignments <- planner_assignments %>% 
@@ -166,15 +161,14 @@ clean_planner_assignments <- planner_assignments %>%
   
 ```
 
-Let's try our join again. 
-
+Let's try our join again.
 
 ```{r}
 bus_passups_with_metadata <-bus_passups_with_metadata %>% 
   left_join( clean_planner_assignments,    by = c("SERVICE_RTE_NUM" = "route_number"))
 ```
 
-Ok, now we have a crazy wide dataframe. Let's pick a few variables to summarize by. I will provide an example, but you can choose what you want. 
+Ok, now we have a crazy wide dataframe. Let's pick a few variables to summarize by. I will provide an example, but you can choose what you want.
 
 ```{r}
   bus_passup_summary <- bus_passups_with_metadata %>% 
@@ -186,7 +180,6 @@ mutate(average_daily_passups =sum_monthly_passups/ DAYS_IN_MONTH,
        pct_trips_with_passup = sum_monthly_passups/monthly_trips)
 ```
 
-
 ## Your turn
 
 Think of a way to join and summarize the datasets. Maybe you could identify routes that have no passups? Maybe you could look at the rate of passups based on equity criteria? Or summarize the data based on planner assignment? You could also decide if it's important to differentiate between the different types of passups. If not, how would you summarize all passup types?
@@ -196,7 +189,3 @@ Think of a way to join and summarize the datasets. Maybe you could identify rout
 
 
 ```
-
-
-
-
