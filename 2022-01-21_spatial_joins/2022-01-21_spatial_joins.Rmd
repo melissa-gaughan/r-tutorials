@@ -1,0 +1,230 @@
+---
+title: "2022-01-21_spatial_data"
+author: "Melissa Gaughan"
+date: "1/20/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r install packages}
+#ONLY RUN EACH LINE IF YOU DON'T HAVE THE PACKAGE INSTALLED
+install.packages("sf")
+install.packages("mapview")
+
+```
+
+```{r load packages}
+library(tidyverse)
+library(DBI)
+library(odbc)
+library(sf)
+library(mapview)
+library(here)
+```
+
+# Working with spatial data in R
+
+Today we're going to continue to work with the bus passup data we created last week and make a map that counts the average weekday passups by block group. To do this, we'll need to work with a spatial join between bus stop locations and block groups. We'll get our stop records from T-BIRD to demonstrate how to spatialize non-spatial data and we'll grab our block groups from a shapefile. 
+
+### Let's grab data from T-BIRD
+
+```{r}
+server <- "kcitazrsqlprp01.database.windows.net"
+database = "tbird_dw"
+
+# Establish connection
+con <- DBI::dbConnect(odbc::odbc(), 
+                      Driver="ODBC Driver 17 for SQL Server",
+                      Server = server, Database = database,
+                      Authentication = "ActiveDirectoryIntegrated")
+
+# Get data from a select statement (creates a dataframe)
+#EXAMPLE. DO NOT RUN. 
+bus_passups_fall_2021 <- dbGetQuery(con, "SELECT  FULL_DATE
+      ,SCHED_DAY_TYPE_CODED_NUM
+      ,DAY_PART_CD
+      ,MESSAGE_TIME_SECONDS_AFTER_MIDNT
+      ,STOP_ID
+      ,SERVICE_RTE_NUM
+      ,INBD_OUTBD_CD
+      ,TRIP_ID
+      ,VEHICLE_ID
+      ,MESSAGE
+      ,MESSAGE_TEXT
+      ,OBSERVED_FLAG
+      ,MAX_PSNGR_LOAD
+      ,TB_UPDATED_DATE
+  FROM DP.BUS_PASSUPS
+  WHERE FULL_DATE >= CAST('2021-10-02'AS DATE)
+  AND FULL_DATE < CAST('2022-01-01' AS DATE)
+  AND MESSAGE_TEXT <> 'Resume pick up of customers'")
+
+stop_locations <- dbGetQuery(con, "SELECT STOP_ID
+      ,XCOORD_OFFSET
+      ,YCOORD_OFFSET
+      FROM TREX.STOP_TEMPORAL
+      WHERE STOP_STATUS_ID = 100138
+      AND CHANGE_NUM = 149
+      AND MINOR_CHANGE_NUM = 0
+      AND EFFECTIVE_END_DATE >= CAST('2021-10-02'AS DATE) ")                     
+
+date_table <- dbGetQuery(con,"SELECT FULL_DATE, CAL_YEAR_NUM, CAL_MONTH_IN_YEAR_NUM, SERVICE_DAY_TYPE_CODE, CAL_MONTH_LONG_NAME
+ FROM EDW.DIM_DATE") %>% 
+  group_by(CAL_YEAR_NUM, CAL_MONTH_IN_YEAR_NUM, SERVICE_DAY_TYPE_CODE) %>% mutate(DAYS_IN_MONTH = n())
+```
+
+```{r table joins}
+
+bus_passups_summary <- bus_passups_fall_2021 %>% 
+  #I am ommiting the "by" clause because I know that the field I want to join on is named the same in both tables
+  left_join(stop_locations) %>% 
+  left_join(date_table) %>% 
+  group_by(STOP_ID, MESSAGE_TEXT, CAL_MONTH_IN_YEAR_NUM, CAL_YEAR_NUM, DAYS_IN_MONTH, SCHED_DAY_TYPE_CODED_NUM, 
+      XCOORD_OFFSET,YCOORD_OFFSET) %>% 
+  summarise(sum_monthly_passups_by_stop = n()) 
+
+```
+
+### Let's make our stop table spatial
+
+```{r}
+stops_geo <- bus_passups_summary %>% 
+  filter(!is.na(XCOORD_OFFSET)) %>% 
+  st_as_sf( coords = c("XCOORD_OFFSET", "YCOORD_OFFSET"), crs = 2926)
+```
+### st_as_sf
+
+This function is making a table into a spatial object by using the geometry columns I have specified for lat/long. crs stands for "coordinate reference system". There are many coordinate reference systems, but the ones you are likely to run into at Metro are 2926 (NAD83(HARN) / Washington North (ftUS)) and 4326 (WGS 84 -- WGS84 - World Geodetic System 1984, used in GPS)). It's important to understand crs as it will determine how your map plots. 
+
+### Now, let's look at our stops!
+
+```{r}
+mapview(stops_geo, zcol = c("sum_monthly_passups_by_stop"))
+```
+
+
+It's interesting to look at this data by stop, but maybe we want to look at it by block group. How would we do that?
+
+# Spatial Join
+
+For this analysis, we need to join points to polygons. In other words, we want to know if a stop is in a particular block group. Let's go read in our block group shapefile. 
+
+
+```{r}
+block_groups <- st_read(dsn = here("2022-01-21_spatial_joins", "data", "KC_block_groups", "2010_Census_Block_Groups_for_King_County_-_Conflated_to_Parcels_-_Major_Waterbodies_Erased___blkgrp10_shore_area.shp"))
+```
+
+Can anyone see what the CRS of this shapefile is? Does it match our stops_geo object? Let's test it.
+
+```{r}
+st_crs(block_groups) == st_crs(stops_geo)
+```
+
+Luckily for us, there is an easy way to reproject our data. Usually, for joins we want things to be in (NAD83(HARN) / Washington North (ftUS)) (aka crs = 2926) because it is more accurate in our region than WGS1984. 
+
+
+```{r}
+block_groups <- block_groups %>% 
+  st_transform(2926)
+```
+
+Let's test that our two datasets match:
+
+
+```{r}
+st_crs(block_groups) == st_crs(stops_geo)
+```
+
+
+Now we are ready to spatially join our stops dataset to our block group dataset. 
+
+```{r}
+stops_by_block_group <- st_join( block_groups, stops_geo, join = st_contains) 
+```
+
+Take a minute to look at the new table. Can you see what the geometry is now? 
+
+```{r}
+mapview(stops_by_block_group)
+```
+
+Ok, we still need to sum all the incidents of passups that happened in each block group. 
+
+
+```{r}
+block_group_passups <- stops_by_block_group %>% 
+   filter(!is.na(sum_monthly_passups_by_stop)) %>% 
+  group_by(_____, ____, ____, ______) %>% 
+  summarise(block_group_passups_sum = sum(_____, na.rm = ____))
+
+```
+
+Working with spatial data can be a computer-intensive task. One thing I often do to ease the computing load is drop the geometry fields (aka make my shapefile a flat table), do my summarization, and then re-join to the geographic dataset. 
+
+```{r}
+block_group_passups <- stops_by_block_group %>% 
+  #keep the attribute table but drop the geometry
+  st_drop_geometry() %>% 
+  filter(!is.na(sum_monthly_passups_by_stop)) %>% 
+  group_by(GEO_ID_GRP, SCHED_DAY_TYPE_CODED_NUM, CAL_MONTH_IN_YEAR_NUM, CAL_YEAR_NUM) %>% 
+  summarise(block_group_passups_sum = sum(sum_monthly_passups_by_stop, na.rm = TRUE)) 
+
+# after the summary is done, rejoin to the spatial data. To get the spatial data to come through, it needs to be a separate step, not piped. 
+
+block_group_passups <- block_groups %>% 
+  left_join(block_group_passups)
+
+```
+
+
+Now, we can start to make some maps. Remember, this data still has multiple months and multiple day types. For the sake of simplicity, we're going to make a dataset for each day type to put on the map and will focus on just one month of data. 
+
+```{r}
+nov_wkd_passups <- block_group_passups %>% 
+  filter(CAL_MONTH_IN_YEAR_NUM == ____ & SCHED_DAY_TYPE_CODED_NUM== ___)
+
+nov_sat_passups <- block_group_passups %>% 
+  filter(CAL_MONTH_IN_YEAR_NUM == ____ & SCHED_DAY_TYPE_CODED_NUM== ___)
+
+nov_sun_passups <- block_group_passups %>% 
+  filter(CAL_MONTH_IN_YEAR_NUM == ____ & SCHED_DAY_TYPE_CODED_NUM== ___)
+```
+
+Finally, a map!
+
+
+```{r}
+
+november_passups_map <- mapview(nov_wkd_passups, zcol = "block_group_passups_sum") +
+   mapview(nov_sat_passups, zcol = "block_group_passups_sum") +
+   mapview(nov_sun_passups, zcol = "block_group_passups_sum") 
+
+november_passups_map
+
+```
+
+If you want to learn more about mapview, check out the mapview resource site. It's a super powerful tool!
+https://r-spatial.github.io/mapview/
+
+
+As an added bonus, you can save your map as a standalone html page. It's a great way to share your map easily with people who don't use R. 
+
+```{r}
+mapshot(november_passups_map, url = here("2022-01-21_spatial_joins", "output", "november_2021_block_group_passups_map.html"), title = "November 2021 Passups" )
+```
+
+## Bonus content
+
+I've included a shapefile of 2018 point-level job employment data. The code below will lode it in for you. To practice spatial joins and aggregation, join the employment points to block group polygons. Create a map of jobs by block group. Bonus points for normalizing by area (aka mapping job density)
+
+
+```{r}
+job_points_2018 <- st_read(dsn = here("2022-01-21_spatial_joins", "data",
+                                      "lehd_2018", "points_2018.shp")) %>% 
+  st_transform(2926)
+```
+
+
