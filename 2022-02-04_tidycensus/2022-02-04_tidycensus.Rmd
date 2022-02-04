@@ -1,0 +1,173 @@
+---
+title: "2022-02-04 Census Data in R"
+output: html_notebook
+---
+
+## Overview
+
+Today we are going to be talking about the package that convinced me that R was an essential tool for planner/analysts: tidycensus. It is an easy way to use tidyverse-like code to get ACS and Census data without EVER having to deal with the trauma of navigating data.gov. Topics for today include: 
+
+1. Getting an API key for data.gov
+2. Installing/setting up your API key
+3. Looking at all the available data for a particular ACS or Census data product. 
+4. Retrieving data based on variable names. 
+5. If time allows, an overview of how I used tidycensus to create the Equity Priority Areas. 
+
+### tidycensus Resource Site
+
+Kyle Walker, the developer of tidycensus and professor of urban planning at UPenn, has an amazing website that explains everything you need to know to work with tidycensus. The resources that follow are based on his site, but definitely check the site out. 
+
+https://walker-data.com/tidycensus/index.html
+
+### Get an API Key
+
+To get started working with tidycensus, load the package along with the tidyverse package, and set your Census API key. A key can be obtained from http://api.census.gov/data/key_signup.html.
+
+```{r install packages}
+#DO NOT RUN IF ALREADY INSTALLED
+
+install.packages("tidycensus")
+
+```
+
+```{r load packages}
+library(tidycensus)
+library(tidyverse)
+
+census_api_key("YOUR API KEY GOES HERE") #Put your API key INSIDE the quotes. You only need to do this ONCE.
+
+```
+
+
+## tidycensus basics
+
+There are two major functions implemented in tidycensus: get_decennial(), which grants access to the 2000, 2010, and 2020 decennial US Census APIs, and get_acs(), which grants access to the 1-year and 5-year American Community Survey APIs.
+
+In this basic example, let’s look at median age by state in 2010:
+
+
+```{r}
+age_2010 <- get_decennial(geography = "state", 
+                       variables = "P013001", 
+                       year = 2010)
+
+head(age_2010)
+```
+
+
+The function returns a tibble with four columns by default: GEOID, which is an identifier for the geographical unit associated with the row; NAME, which is a descriptive name of the geographical unit; variable, which is the Census variable represented in the row; and value, which is the value of the variable for that unit. By default, tidycensus functions return tidy data frames in which rows represent unit-variable combinations; for a wide data frame with Census variable names in the columns, set output = "wide" in the function call.
+
+As the function has returned a tidy object, we can visualize it quickly with ggplot2:
+
+```{r}
+age_2010 %>%
+  ggplot(aes(x = value, y = reorder(NAME, value))) + 
+  geom_point()
+```
+
+
+## Geography in tidycensus
+
+To get decennial Census data or American Community Survey data, supply an argument to the required geography parameter. Arguments are formatted as consumed by the Census API, and specified in the table at https://walker-data.com/tidycensus/articles/basic-usage.html . Not all geographies are available for all surveys, all years, and all variables.
+
+For our purposes at King County, I usually end up using "state", "county", "tract" and "block group". tidycensus is space and capitalization sensitive, so pay attention!
+
+
+## Search for variables
+
+
+Getting variables from the Census or ACS requires knowing the variable ID - and there are thousands of these IDs across the different Census files. To rapidly search for variables, use the load_variables() function. The function takes two required arguments: the year of the Census or endyear of the ACS sample, and the dataset name, which varies in availability by year.
+
+For the decennial Census, possible dataset choices include "pl" for the redistricting files (currently the only choice for 2020), "sf1" or "sf2" (2000 and 2010) and "sf3" or "sf4" (2000 only) for the various summary files. Special island area summary files are available with "as", "mp", "gu", or "vi". For the ACS, use either "acs1" or "acs5" for the ACS detailed tables, and append /profile for the Data Profile and /subject for the Subject Tables. To browse these variables, assign the result of this function to a variable and use the View function in RStudio. An optional argument cache = TRUE will cache the dataset on your computer for future use. 
+
+
+```{r load variables}
+
+v19 <- load_variables(2019, "acs5", cache = TRUE)
+
+View(v19)
+
+```
+
+# Working with ACS data
+
+American Community Survey (ACS) data are available from the 1-year ACS since 2005 for geographies of population 65,000 and greater, and from the 5-year ACS for all geographies down to the block group level starting with the 2005-2009 dataset. get_acs() defaults to the 5-year ACS with the argument survey = "acs5", but 1-year ACS data are available using survey = "acs1".
+
+ACS data differ from decennial Census data as they are based on an annual sample of approximately 3 million households, rather than a more complete enumeration of the US population. In turn, ACS data points are estimates characterized by a margin of error. tidycensus will always return the estimate and margin of error together for any requested variables when using get_acs(). In turn, when requesting ACS data with tidycensus, it is not necessary to specify the "E" or "M" suffix for a variable name.
+
+
+```{r}
+wa_med_household_income <- get_acs(geography = "county", 
+              variables = c(medincome = "B19013_001"), 
+              state = "WA", 
+              year = 2019)
+
+wa_med_household_income
+```
+
+
+The output is similar to a call to get_decennial(), but instead of a value column, get_acs returns estimate and moe columns for the ACS estimate and margin of error, respectively. moe represents the default 90 percent confidence level around the estimate; this can be changed to 95 or 99 percent with the moe_level parameter in get_acs if desired.
+
+As we have the margin of error, we can visualize the uncertainty around the estimate:
+
+```{r}
+wa_med_household_income %>%
+  mutate(NAME = gsub(" County, Washington", "", NAME)) %>%
+  ggplot(aes(x = estimate, y = reorder(NAME, estimate))) +
+  geom_errorbarh(aes(xmin = estimate - moe, xmax = estimate + moe)) +
+  geom_point(color = "red", size = 3) +
+  labs(title = "Household income by county in Washington",
+       subtitle = "2015-2019 American Community Survey",
+       y = "",
+       x = "ACS estimate (bars represent margin of error)")
+```
+
+
+## Your turn
+
+Go back to the V19 table and find a variable that you are interested in. Then, update the code below to return a table of your variable of interest. 
+
+
+```{r your turn to play}
+_____ <- get_acs(geography = "___", #you can try "county" or "block group" or "tract"
+              variables = c(____ = "____"), 
+              state = "___", 
+              county =  "___" , # use this if you want to only return results for a certain county
+              year = ___, 
+              geometry = TRUE) #set to TRUE to make your data a spatial object by default. 
+```
+
+```{r black pop example}
+black_pop <- get_acs(geography = "block group", #you can try "county" or "block group" or "tract"
+              variables = c(black_pop =  "B02009_001"), # "B02001_003"), 
+              state = "WA", 
+              county =  "King" , # use this if you want to only return results for a certain county
+              year = 2019, 
+              geometry = TRUE) %>% 
+  filter(estimate != 0)
+```
+
+
+### Map your data
+
+If you return a spatial object from tidycensus, you can easily map it using mapview. 
+```{r}
+
+library(mapview)
+
+___ <- mapview(___, zcol= "estimate", 
+                         layer.name = "_____")
+
+___ # call your map object
+```
+
+
+```{r}
+library(mapview)
+
+black_pop_map <- mapview(black_pop, zcol= "estimate", 
+                         layer.name = "2019 Black Population Count")
+
+black_pop_map
+```
+

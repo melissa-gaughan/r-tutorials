@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <origin/>
+                <pubdate>20110210</pubdate>
+                <title>2010 Census Block Groups for King County - Conflated to Parcels - Major Waterbodies Erased / blkgrp10_shore_area</title>
+                <edition>One</edition>
+                <geoform>vector digital data</geoform>
+                <pubinfo>
+                    <pubplace/>
+                    <publish>King County</publish>
+                </pubinfo>
+                <othercit>None</othercit>
+                <onlink>https://kingcounty.maps.arcgis.com/home/item.html?id=29a86ca6e67e48c9ab92bf3fd1492641</onlink>
+                <onlink>https://kingcounty.maps.arcgis.com/home/item.html?id=976424a73b714776a73087e3243eff4a</onlink>
+                <onlink>https://www5.kingcounty.gov/sdc/Metadata.aspx?Layer=blkgrp10_shore</onlink>
+                <onlink>https://www5.kingcounty.gov/sdc/addl_doc/KCGISCenterTermsAndConditions.pdf</onlink>
+                <onlink>https://www5.kingcounty.gov/sdc/addl_doc/KCGISCenterHelpUsingKCOpenData.pdf</onlink>
+            </citeinfo>
+        </citation>
+        <descript>
+            <abstract>The TIGER/Line Files are shapefiles and related database files (.dbf) that are an extract of selected geographic and cartographic information from the U.S. Census Bureau's Master Address File / Topologically Integrated Geographic Encoding and Referencing (MAF/TIGER) Database (MTDB). The MTDB represents a seamless national file with no overlaps or gaps between parts, however, each TIGER/Line File is designed to stand alone as an independent data set, or they can be combined to cover the entire nation. Census Blocks are statistical areas bounded on all sides by visible features, such as streets, roads, streams, and railroad tracks, and/or by nonvisible boundaries such as city, town, township, and county limits, and short line-of-sight extensions of streets and roads. Census blocks are relatively small in area; for example, a block in a city bounded by streets. However, census blocks in remote areas are often large and irregular and may even be many square miles in area. A common misunderstanding is that data users think census blocks are used geographically to build all other census geographic areas, rather all other census geographic areas are updated and then used as the primary constraints, along with roads and water features, to delineate the tabulation blocks. As a result, all 2010 Census blocks nest within every other 2010 Census geographic area, so that Census Bureau statistical data can be tabulated at the block level and aggregated up to the appropriate geographic areas. Census blocks cover all territory in the United States, Puerto Rico, and the Island Areas (American Samoa, Guam, the Commonwealth of the Northern Mariana Islands, and the U.S. Virgin Islands). Blocks are the smallest geographic areas for which the Census Bureau publishes data from the decennial census. A block may consist of one or more faces.</abstract>
+            <purpose>In order for others to use the information in the Census MAF/TIGER database in a geographic information system (GIS) or for other geographic applications, the Census Bureau releases to the public extracts of the database in the form of TIGER/Line Shapefiles.</purpose>
+            <supplinf>http://www5.kingcounty.gov/sdc/addl_doc/CustomizedJoinDetail_Blkgrp.htm</supplinf>
+        </descript>
+        <timeperd>
+            <timeinfo>
+                <rngdates>
+                    <begdate>20100101</begdate>
+                    <enddate>20100701</enddate>
+                </rngdates>
+            </timeinfo>
+            <current>publication date</current>
+        </timeperd>
+        <status>
+            <progress>Complete</progress>
+            <update>None planned</update>
+        </status>
+        <spdom>
+            <bounding>
+                <westbc>-121.993755</westbc>
+                <eastbc>-121.90721</eastbc>
+                <northbc>47.501956</northbc>
+                <southbc>47.435882</southbc>
+            </bounding>
+        </spdom>
+        <keywords>
+            <theme>
+                <themekt>Not applicable</themekt>
+                <themekey>census</themekey>
+                <themekey>demographic</themekey>
+                <themekey>polygon</themekey>
+                <themekey>block group</themekey>
+                <themekey>census block</themekey>
+                <themekey>water</themekey>
+                <themekey>census_OpenData</themekey>
+                <themekey>kingcounty_opendata</themekey>
+                <themekey>blkgrp10_shore_area</themekey>
+            </theme>
+            <theme>
+                <themekt>ISO 19115 Topic Categories</themekt>
+                <themekey>boundaries</themekey>
+                <themekey>society</themekey>
+            </theme>
+            <place>
+                <placekt>Not applicable</placekt>
+                <placekey>53033</placekey>
+                <placekey>Pacific NW</placekey>
+                <placekey>King County</placekey>
+                <placekey>Washington state</placekey>
+                <placekey>WA</placekey>
+            </place>
+        </keywords>
+        <accconst>None</accconst>
+        <useconst>The TIGER/Line Shapefile products are not copyrighted however TIGER/Line and Census TIGER are registered trademarks of the U.S. Census Bureau. These products are free to use in a product or publication, however acknowledgement must be given to the U.S. Census Bureau as the source. The boundary information in the TIGER/Line Shapefiles are for statistical data collection and tabulation purposes only; their depiction and designation for statistical purposes does not constitute a determination of jurisdictional authority or rights of ownership or entitlement and they are not legal land descriptions.Coordinates in the TIGER/Line shapefiles have six implied decimal places, but the positional accuracy of these coordinates is not as great as the six decimal places suggest. King County data are made available with the understanding that they shall be used exclusively by the obtainer or his/her authorized agents. Digital products may not be reproduced or redistributed in any form or by any means without the express written authorization of King County.</useconst>
+        <ptcontac>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>King County GIS Center</cntorg>
+                    <cntper>Mary Ullrich</cntper>
+                </cntorgp>
+                <cntpos>GIS Analyst</cntpos>
+                <cntaddr>
+                    <addrtype>mailing and physical</addrtype>
+                    <address>201 S Jackson St, Suite 706</address>
+                    <city>Seattle</city>
+                    <state>WA</state>
+                    <postal>98104</postal>
+                    <country>US</country>
+                </cntaddr>
+                <cntvoice>206-684-1789</cntvoice>
+            </cntinfo>
+        </ptcontac>
+        <browse>
+            <browsen>http://www5.kingcounty.gov/sdc/DataImages/blkgrp10_shore.jpg</browsen>
+            <browsed>JPG File of layer overlain on base of WA counties or local cities</browsed>
+            <browset>JPG</browset>
+        </browse>
+        <datacred>King County</datacred>
+        <native>ESRI ArcGIS 10.0.0.2414</native>
+    </idinfo>
+    <dataqual>
+        <attracc>
+            <attraccr>Accurate against Federal Information Processing Standards (FIPS), FIPS Publication 6-4, and FIPS-55 at the 100% level for the codes and base names. The remaining attribute information has been examined but has not been fully tested for accuracy.</attraccr>
+        </attracc>
+        <logic>The Census Bureau performed automated tests to ensure logical consistency and limits of shapefiles. Segments making up the outer and inner boundaries of a polygon tie end-to-end to completely enclose the area. All polygons are tested for closure. The Census Bureau uses its internally developed geographic update system to enhance and modify spatial and attribute data in the Census MAF/TIGER database. Standard geographic codes, such as FIPS codes for states, counties, municipalities, county subdivisions, places, American Indian/Alaska Native/Native Hawaiian areas, and congressional districts are used when encoding spatial entities. The Census Bureau performed spatial data tests for logical consistency of the codes during the compilation of the original Census MAF/TIGER database files. Most of the codes for geographic entities except states, counties, urban areas, Core Based Statistical Areas (CBSAs), American Indian Areas (AIAs), and congressional districts were provided to the Census Bureau by the USGS, the agency responsible for maintaining FIPS 55. Feature attribute information has been examined but has not been fully tested for consistency. For the TIGER/Line Shapefiles, the Point and Vector Object Count for the G-polygon SDTS Point and Vector Object Type reflects the number of records in the shapefile attribute table. For multi-polygon features, only one attribute record exists for each multi-polygon rather than one attribute record per individual G-polygon component of the multi-polygon feature. TIGER/Line Shapefile multi-polygons are an exception to the G-polygon object type classification. Therefore, when multi-polygons exist in a shapefile, the object count will be less than the actual number of G-polygons.</logic>
+        <complete>Data completeness of the TIGER/Line Shapefiles reflects the contents of the Census MAF/TIGER database at the time the TIGER/Line Shapefiles were created. TIGER/Line Shapefiles are extracted from the Census MAF/TIGER database. No changes or updates will be made to this version of the TIGER/Line Shapefiles. Future releases of TIGER/Line Shapefiles will reflect updates made to the Census MAF/TIGER database.</complete>
+        <lineage>
+            <srcinfo>
+                <srccite>
+                    <citeinfo>
+                        <title>Census MAF/TIGER database</title>
+                    </citeinfo>
+                </srccite>
+                <typesrc>onLine</typesrc>
+                <srctime>
+                    <timeinfo>
+                        <rngdates>
+                            <begdate>20100101</begdate>
+                            <enddate>20100701</enddate>
+                        </rngdates>
+                    </timeinfo>
+                    <srccurr>publication date</srccurr>
+                </srctime>
+                <srccitea>Census MAF/TIGER database</srccitea>
+                <srccontr>The selected geographic and cartographic information (line segments) are derived from the U.S. Census Bureau's Master Address File Topologically Integrated Geographic Encoding and Referencing (MAF/TIGER) database.</srccontr>
+            </srcinfo>
+            <procstep>
+                <procdesc>Puget Sound and major waterbodies erased from most current version of BLKGRP10_AREA</procdesc>
+            </procstep>
+            <procstep>
+                <procdesc>Updated blockce10 item in table to match the block number using original block number from Census Bureau. 7 blocks updated.</procdesc>
+                <procdate>20120712</procdate>
+            </procstep>
+            <procstep>
+                <procdesc>Updated tractce10 and blockce10 field items for the following GEOID10 (unique identifier for Blocks). This way the disolve process in python script works properly to create the correct polygons for Block Groups and Tracts. TRACTCE10 BLOCKCE10 GEOID10 008100 1019 530339901000026 032702 5178 530330315021000 026300 2017 530330263002018 032800 2002 530330328002148 032704 3042 530330327044002 032702 5137 530330327025207 031502 1160 530330315021180</procdesc>
+                <procdate>20120716</procdate>
+            </procstep>
+        </lineage>
+    </dataqual>
+    <spdoinfo>
+        <indspref>Federal Information Processing Standards (FIPS), ANSI, and feature names.</indspref>
+        <direct>Vector</direct>
+        <ptvctinf>
+            <sdtsterm>
+                <sdtstype>GT-polygon composed of chains</sdtstype>
+                <ptvctcnt>0</ptvctcnt>
+            </sdtsterm>
+        </ptvctinf>
+    </spdoinfo>
+    <eainfo>
+        <detailed>
+            <enttyp>
+                <enttypl>PLIBRARY.CENSUS.xxxx237634</enttypl>
+                <enttypd>Polygon attribute table</enttypd>
+                <enttypds>ESRI</enttypds>
+            </enttyp>
+            <attr>
+                <attrlabl>OBJECTID</attrlabl>
+                <attrdef>Internal feature number.</attrdef>
+                <attrdefs>ESRI</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Sequential unique whole numbers that are automatically generated.</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>GEO_ID_GRP</attrlabl>
+            </attr>
+            <attr>
+                <attrlabl>SHAPE</attrlabl>
+                <attrdef>Feature Geometry</attrdef>
+                <attrdefs>ESRI</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Coordinates defining the features</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>FEATURE_ID</attrlabl>
+                <attrdef>Unique serial feature identifier</attrdef>
+                <attrdefs>King County</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Unique integer for each block starting at 10001</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>BLKGRP_LBL</attrlabl>
+                <attrdef>Block Group label</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Blkgrp literal cocantenated with block number</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>BLKGRP_STR</attrlabl>
+                <attrdef>Block Group as string</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>String</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>BLKGRP_INT</attrlabl>
+                <attrdef>Block Group as integer</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Integer</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>GRPLABEL_FULL</attrlabl>
+                <attrdef>Block label as full expression of all pertinent levels</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Cocantenation with spaces of delimited Tract number and string Block Group number</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>GRPLABEL_COMP</attrlabl>
+                <attrdef>Block label as complete expression of all pertinent levels</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Cocantenation with spaces of stringTract number and string Block Group number</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>GRPLABEL_TRIM</attrlabl>
+                <attrdef>Block label as trimmed expression of all pertinent levels</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Cocantenation with spaces of delimited Tract number and string Block Group sequence identifier</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRACT_LBL</attrlabl>
+                <attrdef>Tract label</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Cocantenation of literal Tract with full Tract number</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRACT_STR</attrlabl>
+                <attrdef>Tract number as string</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>String</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRACT_INT</attrlabl>
+                <attrdef>Tract number as integer</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Integer</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRACT_FLT</attrlabl>
+                <attrdef>Tract number as floating point</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <rdom>
+                        						
+                        <rdommin>0.00000000</rdommin>
+                        						
+                        <rdommax>322.10000000</rdommax>
+                        					
+                    </rdom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRACT_DEL</attrlabl>
+                <attrdef>Floating point Tract number as string</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Floating point value expressed as string</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRTLABEL_FULL</attrlabl>
+                <attrdef>Block label as full expression of all pertinent levels</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Cocantenation with spaces of delimited Tract number</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRTLABEL_COMP</attrlabl>
+                <attrdef>Block label as complete expression of all pertinent levels</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Cocantenation with spaces of full Tract number</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>TRTLABEL_TRIM</attrlabl>
+                <attrdef>Block label as trimmed expression of all pertinent levels</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Cocantenation with spaces of delimited Tract number</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>COUNTY_STR</attrlabl>
+                <attrdef>County identifier as string</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>(no value)</edomv>
+                        						
+                        <edomvd>No value</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>033</edomv>
+                        						
+                        <edomvd>King County</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>COUNTY_INT</attrlabl>
+                <attrdef>County identifier as integer</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>0</edomv>
+                        						
+                        <edomvd>No value</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>33</edomv>
+                        						
+                        <edomvd>King County</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>STATE_STR</attrlabl>
+                <attrdef>State identifier as string</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>(no value)</edomv>
+                        						
+                        <edomvd>No value</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>53</edomv>
+                        						
+                        <edomvd>Washington</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>STATE_INT</attrlabl>
+                <attrdef>State identifier as integer</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>0</edomv>
+                        						
+                        <edomvd>No value</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+                <attrdomv>
+                    					
+                    <edom>
+                        						
+                        <edomv>53</edomv>
+                        						
+                        <edomvd>Washington</edomvd>
+                        						
+                        <edomvds>U.S. Census Bureau</edomvds>
+                        					
+                    </edom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>LEVEL_1</attrlabl>
+                <attrdef>State code</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>String</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>LEVEL_2</attrlabl>
+                <attrdef>State code plus County code</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>String</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>LEVEL_3</attrlabl>
+                <attrdef>State code, County code plus Tract code</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>String</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>GROUP_AREA</attrlabl>
+            </attr>
+            <attr>
+                <attrlabl>GROUP_PERI</attrlabl>
+            </attr>
+            <attr>
+                <attrlabl>LEVEL_4</attrlabl>
+                <attrdef>State code, County code,Tract code plus Block Group code</attrdef>
+                <attrdefs>U.S. Census Bureau</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>String</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>Shape.area</attrlabl>
+                <attrdef>Area of feature in square feet</attrdef>
+                <attrdefs>ESRI</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Double</udom>
+                    				
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>Shape.len</attrlabl>
+                <attrdef>Length of feature edge in linear feet</attrdef>
+                <attrdefs>ESRI</attrdefs>
+                <attrdomv>
+                    					
+                    <udom>Double</udom>
+                    				
+                </attrdomv>
+            </attr>
+        </detailed>
+        <overview>
+            <eaover>Original attributes provided by the U.S. Census with Tiger Line files were evaluated. Changes are reformatting was done to create a series of attributes for internal business purposes. Attributes at this time serve only as variations of necessary geometry level identifiers and relates (PK) to possible business tables. Attributes are stored as both string and integer to allow options for joining data.</eaover>
+            <eadetcit>King County</eadetcit>
+        </overview>
+    </eainfo>
+    <distinfo>
+        <distrib>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>KCGIS Center</cntorg>
+                    <cntper>Cheryl Wilder</cntper>
+                </cntorgp>
+                <cntpos>Data Sales Coordinator</cntpos>
+                <cntaddr>
+                    <addrtype>mailing and physical</addrtype>
+                    <address>201 S Jackson St, Suite 700</address>
+                    <city>Seattle</city>
+                    <state>WA</state>
+                    <postal>98104</postal>
+                    <country>US</country>
+                </cntaddr>
+                <cntvoice>206-263-5220</cntvoice>
+            </cntinfo>
+        </distrib>
+        <resdesc>/plibrary2/census/shapes/polygon/blkgrp10_shore.shp</resdesc>
+        <distliab>King County disclaims any warranty of use of any digital product or data beyond that for which it was designed. No warranty, expressed or implied is made with regard to the accuracy of these data, and no liability is assumed by the U.S. Government in general or the U.S. Census Bureau in specific as to the spatial or attribute accuracy of the data. The act of distribution shall not constitute any such warranty and no responsibility is assumed by the U.S. government in the use of these files. The boundary information in the TIGER/Line Shapefiles is for statistical data collection and tabulation purposes only; their depiction and designation for statistical purposes do not constitute a determination of jurisdictional authority or rights of ownership or entitlement and they are not legal land descriptions.</distliab>
+        <stdorder>
+            <digform>
+                <digtinfo>
+                    <formname>ESRI Shapefile</formname>
+                </digtinfo>
+            </digform>
+            <fees>Contact KCGIS Client Services for the cost of reproduction - http://www.kingcounty.gov/operations/GIS/GISData/GISDataDistribution.aspx</fees>
+        </stdorder>
+    </distinfo>
+    <metainfo>
+        <metd>20130103</metd>
+        <metc>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>King County GIS Center</cntorg>
+                    <cntper>Mike Leathers</cntper>
+                </cntorgp>
+                <cntpos>GIS Data Coordinator</cntpos>
+                <cntaddr>
+                    <addrtype>mailing and physical</addrtype>
+                    <address>201 S Jackson St, Suite 706</address>
+                    <city>Seattle</city>
+                    <state>WA</state>
+                    <postal>98104</postal>
+                    <country>US</country>
+                </cntaddr>
+                <cntvoice>206-263-4867</cntvoice>
+                <cntemail>firstname.lastname@kingcounty.gov</cntemail>
+            </cntinfo>
+        </metc>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>
