@@ -1,7 +1,6 @@
 library(tidyverse)
 library(sf)
 library(tidycensus)
-
 library(here)
 
 # NOTE! you will need your own census API key for this to work
@@ -21,7 +20,7 @@ crs <- 2926
 #It's more accurate than the one available through the Census API
 #update the location of the file to be wherever you stored it on your computer
 
-block_groups <- st_read(paste0(here( "data" ,"KC_block_groups", #call to the here() command looks for a shapefile in a directory called "data/KC_block_groups"
+block_groups <- st_read(paste0(here( "2022-02-04_tidycensus" , "data" ,"KC_block_groups", #call to the here() command looks for a shapefile in a directory called "data/KC_block_groups"
                                      "2010_Census_Block_Groups_for_King_County_-_Conflated_to_Parcels_-_Major_Waterbodies_Erased___blkgrp10_shore_area.shp")),
                         stringsAsFactors = F) %>%
   janitor::clean_names() %>%
