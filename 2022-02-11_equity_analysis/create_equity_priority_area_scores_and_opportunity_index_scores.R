@@ -24,7 +24,7 @@ service_change <- 213
 #It's more accurate than the one available through the Census API
 #update the location of the file to be wherever you stored it on your computer
 
-block_groups <- st_read(paste0(here( "data" ,"KC_block_groups", #call to the here() command looks for a shapefile in a directory called "data/KC_block_groups"
+block_groups <- st_read(paste0(here( "2022-02-11_equity_analysis", "data" ,"KC_block_groups", #call to the here() command looks for a shapefile in a directory called "data/KC_block_groups"
                                      "2010_Census_Block_Groups_for_King_County_-_Conflated_to_Parcels_-_Major_Waterbodies_Erased___blkgrp10_shore_area.shp")),
                         stringsAsFactors = F) %>%
   janitor::clean_names() %>%
@@ -81,10 +81,7 @@ acs <- get_acs(geography = "block group",
                  group_by(mf_variable, geoid) %>%
                  mutate(sum_moe = moe_sum(moe, estimate)) 
 
-#spatial join to connect block group polygons to data based on GEOID
 
-acs <- block_groups %>% 
-  left_join(acs)
 
 #############################################
 ##### calculate block group need scores #####
@@ -144,10 +141,10 @@ block_group_need_scores_geo <- block_groups %>%
 mapview::mapview(block_group_need_scores_geo, zcol = "final_score")
 
 # save data in a folder called "output". Feel free to change
-write_csv(block_group_need_scores, here::here( "output", paste0("equity_priority_area_scores_", acs_year, ".csv")))
+write_csv(block_group_need_scores, here::here(  "2022-02-11_equity_analysis", "output", paste0("equity_priority_area_scores_", acs_year, ".csv")))
 
 
-write_sf(block_group_need_scores_geo, here::here( "output", paste0("equity_priority_area_scores_", acs_year, ".shp")))
+write_sf(block_group_need_scores_geo, here::here( "2022-02-11_equity_analysis", "output", paste0("equity_priority_area_scores_", acs_year, ".shp")))
 
 ####################################
 ### STOP AND ROUTE EQUITY DATA #####
@@ -159,16 +156,10 @@ write_sf(block_group_need_scores_geo, here::here( "output", paste0("equity_prior
 # metro/other transit partners for correct GTFS to use. 
 
 # This code figures out stop to route associations
-service_id_count <- gtfs$trips %>% 
-  left_join(gtfs$calendar) %>% 
-  mutate(day_type = case_when(saturday == 1 ~ 1, 
-                              sunday == 1 ~ 2, 
-                              TRUE ~ 0)) %>% 
-  group_by(service_id, day_type) %>% 
- summarise(count_trip = n())
+service_change <- "213"
   
 associate_stops_by_route <- function(service_change){
-#service_change <- "211"
+
   gtfs <- read_gtfs(here::here( "data", paste0(service_change , "_gtfs.zip"))) #looking for a zipped folder with the GTFS in the "data" folder
 #join stops to trips to routes to get the stop/route associations. 
 #Then, make the data a spatial object
@@ -246,6 +237,10 @@ stops_equity_scores_by_route <- st_join(stops_by_route, block_group_need_scores_
   janitor::clean_names() %>% 
   drop_na(geoid)
 
+test <- stops_equity_scores_by_route %>% 
+  filter( is.na(stops_equity_scores_by_route$geoid))
+
+class(stops_equity_scores_by_route)
 
 
 
@@ -278,7 +273,7 @@ percent_stops_in_equity_bg_no_geo <- percent_stops_in_equity_bg %>%
 
 #export route level data
 
-  write_csv(percent_stops_in_equity_bg_no_geo, here("output", "route_opportunity_index_scores_213.csv"), append = F)
+  write_csv(percent_stops_in_equity_bg_no_geo, here("output", "route_opportunity_index_scores", service_change, ".csv"), append = F)
   
 # save data as an .RDS as a backup 
 save(percent_stops_in_equity_bg_no_geo, block_group_need_scores, file = here::here( "output", "route_and_block_group_equity_data.RDS"))
